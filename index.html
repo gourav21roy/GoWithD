@@ -115,6 +115,17 @@
 </head>
 <body class="bg-maroon-950 text-cream font-body overflow-x-hidden relative selection:bg-gold-500 selection:text-maroon-950">
 
+    <!-- Hidden YouTube Player Container -->
+    <div id="youtube-player" class="hidden"></div>
+
+    <!-- Floating Audio / Music Player Button -->
+    <div class="fixed top-4 left-4 z-50">
+        <button id="music-btn" onclick="toggleAudio()" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-maroon-900/95 border border-gold-500/70 text-gold-300 backdrop-blur-md shadow-2xl hover:text-gold-100 transition-all text-xs font-bold">
+            <i id="music-icon" class="fas fa-music text-xs"></i>
+            <span id="music-text">Play Music</span>
+        </button>
+    </div>
+
     <!-- Floating Multilingual Language Toggle Button -->
     <div class="fixed top-4 right-4 z-50 flex items-center gap-1 bg-maroon-900/95 border border-gold-500/70 backdrop-blur-md rounded-full p-1 shadow-2xl">
         <button onclick="setLanguage('en')" id="lang-btn-en" class="px-3 py-1 rounded-full text-xs font-bold transition-all bg-gold-500 text-maroon-950 shadow-md">EN</button>
@@ -156,7 +167,7 @@
             <circle cx="720" cy="280" r="320" fill="#FFC72C" opacity="0.08"/>
             <circle cx="720" cy="280" r="220" fill="#E2583E" opacity="0.12"/>
             <!-- Dakshineswar Temple 9 Spires Architecture -->
-            <g transform="translate(320, 100)">
+            <g transform="translate(430, 160) scale(0.68)">
                 <!-- Base Terrace -->
                 <rect x="100" y="320" width="600" height="120" fill="url(#temple-wall)" rx="6"/>
                 <rect x="80" y="440" width="640" height="40" fill="#9C2A1B"/>
@@ -362,31 +373,33 @@
             </defs>
             <rect width="1440" height="900" fill="url(#sky-bridge)"/>
             <!-- Howrah Bridge Cantilever Arch Lattice -->
-            <g stroke="url(#steel-blue)" stroke-width="5" fill="none">
-                <!-- Main Tower Left -->
-                <path d="M 250,800 L 350,150 L 450,800 Z"/>
-                <line x1="300" y1="475" x2="400" y2="475"/>
-                <line x1="275" y1="630" x2="425" y2="630"/>
-                <!-- Main Tower Right -->
-                <path d="M 990,800 L 1090,150 L 1190,800 Z"/>
-                <line x1="1040" y1="475" x2="1140" y2="475"/>
-                <line x1="1015" y1="630" x2="1165" y2="630"/>
-                <!-- Main Suspended Arch Deck Span -->
-                <path d="M 350,150 Q 720,380 1090,150" stroke="#FFC72C" stroke-width="8"/>
-                <path d="M 100,580 Q 720,520 1340,580" stroke="#63B3ED" stroke-width="6"/>
-                <!-- Vertical Suspension Cables -->
-                <line x1="500" y1="280" x2="500" y2="550" stroke="#4FD1C5" stroke-width="2"/>
-                <line x1="600" y1="320" x2="600" y2="540" stroke="#4FD1C5" stroke-width="2"/>
-                <line x1="720" y1="340" x2="720" y2="535" stroke="#FFC72C" stroke-width="3"/>
-                <line x1="840" y1="320" x2="840" y2="540" stroke="#4FD1C5" stroke-width="2"/>
-                <line x1="940" y1="280" x2="940" y2="550" stroke="#4FD1C5" stroke-width="2"/>
+            <g transform="translate(720, 480) scale(0.68) translate(-720, -480)">
+                <g stroke="url(#steel-blue)" stroke-width="5" fill="none">
+                    <!-- Main Tower Left -->
+                    <path d="M 250,800 L 350,150 L 450,800 Z"/>
+                    <line x1="300" y1="475" x2="400" y2="475"/>
+                    <line x1="275" y1="630" x2="425" y2="630"/>
+                    <!-- Main Tower Right -->
+                    <path d="M 990,800 L 1090,150 L 1190,800 Z"/>
+                    <line x1="1040" y1="475" x2="1140" y2="475"/>
+                    <line x1="1015" y1="630" x2="1165" y2="630"/>
+                    <!-- Main Suspended Arch Deck Span -->
+                    <path d="M 350,150 Q 720,380 1090,150" stroke="#FFC72C" stroke-width="8"/>
+                    <path d="M 100,580 Q 720,520 1340,580" stroke="#63B3ED" stroke-width="6"/>
+                    <!-- Vertical Suspension Cables -->
+                    <line x1="500" y1="280" x2="500" y2="550" stroke="#4FD1C5" stroke-width="2"/>
+                    <line x1="600" y1="320" x2="600" y2="540" stroke="#4FD1C5" stroke-width="2"/>
+                    <line x1="720" y1="340" x2="720" y2="535" stroke="#FFC72C" stroke-width="3"/>
+                    <line x1="840" y1="320" x2="840" y2="540" stroke="#4FD1C5" stroke-width="2"/>
+                    <line x1="940" y1="280" x2="940" y2="550" stroke="#4FD1C5" stroke-width="2"/>
+                </g>
             </g>
             <!-- Bridge Deck Road -->
             <rect x="0" y="580" width="1440" height="120" fill="#1A202C"/>
             <line x1="0" y1="640" x2="1440" y2="640" stroke="#F6E05E" stroke-width="4" stroke-dasharray="20 15"/>
             
             <!-- Iconic Yellow Ambassador Taxi -->
-            <g transform="translate(850, 600) scale(0.9)">
+            <g transform="translate(750, 608) scale(0.68)">
                 <path d="M20,40 Q40,10 90,10 L160,10 Q200,10 220,40 L260,45 Q280,45 280,65 L280,80 L0,80 L0,60 Q0,45 20,40 Z" fill="#FFC72C" stroke="#D69E2E" stroke-width="3"/>
                 <path d="M50,20 L100,20 L100,40 L40,40 Z" fill="#E2E8F0" opacity="0.8"/>
                 <path d="M110,20 L170,20 L175,40 L110,40 Z" fill="#E2E8F0" opacity="0.8"/>
@@ -398,7 +411,7 @@
             </g>
 
             <!-- Classic Kolkata Green Tram -->
-            <g transform="translate(200, 585) scale(0.85)">
+            <g transform="translate(420, 600) scale(0.65)">
                 <rect x="0" y="10" width="300" height="65" rx="8" fill="#276749" stroke="#38A169" stroke-width="3"/>
                 <rect x="10" y="0" width="280" height="10" rx="4" fill="#E2E8F0"/>
                 <rect x="20" y="22" width="30" height="30" rx="4" fill="#FEFCBF"/>
@@ -492,7 +505,7 @@
             <rect width="1440" height="900" fill="url(#sky-victoria)"/>
             
             <!-- Victoria Memorial Palace Facade -->
-            <g transform="translate(220, 260)">
+            <g transform="translate(430, 290) scale(0.62)">
                 <rect x="100" y="200" width="800" height="150" fill="url(#marble-white)" rx="4"/>
                 <rect x="400" y="150" width="200" height="200" fill="url(#marble-white)"/>
                 <!-- Pillars -->
@@ -522,87 +535,61 @@
         <!-- Overlay -->
         <div class="absolute inset-0 bg-gradient-to-b from-maroon-950/85 via-maroon-950/70 to-maroon-950/90 pointer-events-none"></div>
 
-        <div class="relative z-20 max-w-3xl mx-auto px-4 text-center my-auto">
-            <span data-i18n="blessings_subtitle" class="text-gold-400 font-script text-4xl block mb-2">Warm Wishes & Blessings</span>
-            <h2 data-i18n="blessings_title" class="font-heading text-2xl sm:text-4xl text-amber-100 mb-6">An Invitation From The Heart</h2>
+        <div class="relative z-20 max-w-4xl mx-auto px-4 text-center my-auto w-full">
+            <span data-i18n="events_subtitle" class="text-gold-400 font-script text-3xl sm:text-4xl block mb-1">Wedding Celebrations</span>
+            <h2 data-i18n="events_title" class="font-heading text-2xl sm:text-4xl text-amber-100 mb-8 tracking-wider">Events & Venues</h2>
 
-            <div class="glass-card p-8 sm:p-10 rounded-3xl border border-gold-500/40 text-amber-100/90 leading-relaxed font-body space-y-6">
-                <p data-i18n="blessings_text1" class="text-base sm:text-lg">
-                    As we step into this beautiful journey of togetherness, your presence, blessings, and warm wishes will mean the world to us and our families.
-                </p>
-                    <div class="flex gap-3">
-                        <button onclick="addToCalendar('Reception - Gourav & Debanjana', 'Wedding Reception Celebration', 'DTC Southern Heights')" class="flex-1 py-2.5 px-3 bg-gold-500/20 hover:bg-gold-500/30 border border-gold-400/50 rounded-lg text-xs font-bold text-gold-300 transition-colors flex items-center justify-center gap-2">
+            <!-- Wedding & Reception Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                <!-- Wedding Card -->
+                <div class="glass-card p-6 rounded-3xl border border-gold-500/50 flex flex-col justify-between hover:border-gold-400 transition-all shadow-xl">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 border-b border-gold-500/30 pb-2">
+                            <span data-i18n="wedding_title" class="font-heading text-xl text-gold-400 font-bold">Subho Bibaho • Wedding</span>
+                            <span class="text-xl">🪔</span>
+                        </div>
+                        <p data-i18n="wedding_date" class="text-sm font-sans text-amber-100 font-semibold mb-2">Saturday, 21st November 2026</p>
+                        <p data-i18n="wedding_venue" class="text-xs font-body text-gold-200/90 mb-4 leading-relaxed">Navnir Farms and Banquets</p>
+                    </div>
+                    <div class="flex gap-2 pt-2">
+                        <button onclick="addToCalendar('Wedding - Gourav & Debanjana', 'Subho Bibaho Ceremony', 'Navnir Farms and Banquets')" class="flex-1 py-2 px-3 bg-gold-500/20 hover:bg-gold-500/30 border border-gold-400/50 rounded-lg text-xs font-bold text-gold-300 transition-colors flex items-center justify-center gap-1.5">
                             <i class="far fa-calendar-plus"></i>
                             <span data-i18n="btn_calendar">Add to Calendar</span>
                         </button>
-                        <a href="https://maps.app.goo.gl/Ju5hbstbMLpXwMgU7" target="_blank" class="py-2.5 px-4 bg-maroon-800 hover:bg-maroon-700 border border-gold-500/40 rounded-lg text-xs font-bold text-gold-300 transition-colors flex items-center justify-center gap-2">
+                        <a href="https://maps.app.goo.gl/z6CoHpzGBdqKQCBa9" target="_blank" class="py-2 px-3 bg-maroon-800 hover:bg-maroon-700 border border-gold-500/40 rounded-lg text-xs font-bold text-gold-300 transition-colors flex items-center justify-center gap-1.5">
+                            <i class="fas fa-map-location-dot"></i>
+                            <span data-i18n="btn_directions">Directions</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Reception Card -->
+                <div class="glass-card p-6 rounded-3xl border border-gold-500/50 flex flex-col justify-between hover:border-gold-400 transition-all shadow-xl">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 border-b border-gold-500/30 pb-2">
+                            <span data-i18n="reception_title" class="font-heading text-xl text-gold-400 font-bold">Preeti Bhoj • Reception</span>
+                            <span class="text-xl">🍽️</span>
+                        </div>
+                        <p data-i18n="reception_date" class="text-sm font-sans text-amber-100 font-semibold mb-2">Monday, 23rd November 2026</p>
+                        <p data-i18n="reception_venue" class="text-xs font-body text-gold-200/90 mb-4 leading-relaxed">DTC Southern Heights</p>
+                    </div>
+                    <div class="flex gap-2 pt-2">
+                        <button onclick="addToCalendar('Reception - Gourav & Debanjana', 'Preeti Bhoj Reception Celebration', 'DTC Southern Heights')" class="flex-1 py-2 px-3 bg-gold-500/20 hover:bg-gold-500/30 border border-gold-400/50 rounded-lg text-xs font-bold text-gold-300 transition-colors flex items-center justify-center gap-1.5">
+                            <i class="far fa-calendar-plus"></i>
+                            <span data-i18n="btn_calendar">Add to Calendar</span>
+                        </button>
+                        <a href="https://maps.app.goo.gl/Ju5hbstbMLpXwMgU7" target="_blank" class="py-2 px-3 bg-maroon-800 hover:bg-maroon-700 border border-gold-500/40 rounded-lg text-xs font-bold text-gold-300 transition-colors flex items-center justify-center gap-1.5">
                             <i class="fas fa-map-location-dot"></i>
                             <span data-i18n="btn_directions">Directions</span>
                         </a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- WARM REGARDS SECTION -->
-    <section class="parallax-section min-h-[80vh] flex items-center justify-center py-20 border-b border-gold-500/30">
-        <!-- COLORFUL PRINCEP GHAT & PEACOCK BOAT SVG PARALLAX BACKGROUND -->
-        <svg class="parallax-bg opacity-85 w-full h-full object-cover" data-speed="0.12" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <linearGradient id="sky-princep" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#31101E"/>
-                    <stop offset="50%" stop-color="#58111A"/>
-                    <stop offset="100%" stop-color="#210306"/>
-                </linearGradient>
-                <linearGradient id="pillar-white" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#FFFFFF"/>
-                    <stop offset="100%" stop-color="#E2E8F0"/>
-                </linearGradient>
-            </defs>
-            <rect width="1440" height="900" fill="url(#sky-princep)"/>
-            
-            <!-- Princep Ghat Pillars -->
-            <g transform="translate(260, 240)">
-                <rect x="80" y="100" width="760" height="50" fill="url(#pillar-white)" rx="4"/>
-                <polygon points="60,100 460,20 860,100" fill="#EDF2F7"/>
-                
-                <rect x="120" y="150" width="30" height="250" fill="url(#pillar-white)"/>
-                <rect x="200" y="150" width="30" height="250" fill="url(#pillar-white)"/>
-                <rect x="280" y="150" width="30" height="250" fill="url(#pillar-white)"/>
-                <rect x="360" y="150" width="30" height="250" fill="url(#pillar-white)"/>
-                <rect x="530" y="150" width="30" height="250" fill="url(#pillar-white)"/>
-                <rect x="610" y="150" width="30" height="250" fill="url(#pillar-white)"/>
-                <rect x="690" y="150" width="30" height="250" fill="url(#pillar-white)"/>
-                <rect x="770" y="150" width="30" height="250" fill="url(#pillar-white)"/>
-                <path d="M 390,250 Q 460,160 530,250 L 530,400 L 390,400 Z" fill="#210306"/>
-                <circle cx="215" cy="200" r="10" fill="#F6E05E"/>
-                <circle cx="705" cy="200" r="10" fill="#F6E05E"/>
-            </g>
-
-            <!-- River Hooghly & Royal Mayurpankhi Boat -->
-            <rect x="0" y="640" width="1440" height="260" fill="#2A080C"/>
-            <g transform="translate(820, 610) scale(1.1)">
-                <path d="M 10,50 Q 80,90 220,50 Q 240,20 270,10 Q 290,0 295,20 Q 275,40 240,60 Q 150,100 10,50 Z" fill="#D69E2E" stroke="#B7791F" stroke-width="3"/>
-                <circle cx="285" cy="12" r="8" fill="#3182CE"/>
-                <path d="M 285,12 Q 295,5 300,0" stroke="#ECC94B" stroke-width="2"/>
-                <circle cx="300" cy="0" r="3" fill="#E53E3E"/>
-                <circle cx="120" cy="50" r="8" fill="#ED8936"/>
-                <circle cx="120" cy="50" r="16" fill="#ECC94B" opacity="0.3"/>
-            </g>
-        </svg>
-        
-        <!-- Dark Overlay -->
-        <div class="absolute inset-0 bg-gradient-to-b from-maroon-950/85 via-maroon-950/70 to-maroon-950/95 pointer-events-none"></div>
-
-        <div class="relative z-20 max-w-2xl mx-auto px-4 text-center my-auto">
-            <span data-i18n="regards_subtitle" class="text-gold-400 font-script text-4xl block mb-2">With Warm Regards</span>
-            <h2 data-i18n="regards_title" class="font-heading text-2xl sm:text-3xl text-cream mb-4">Sarkar & Roy Families</h2>
-            <div class="w-20 h-1 bg-gold-400 mx-auto mb-6"></div>
-            
-            <div class="glass-card p-8 rounded-2xl border border-gold-500/40">
-                <p data-i18n="regards_text" class="text-amber-100/90 font-body text-base sm:text-lg leading-relaxed">
-                    Please treat this digital invitation as a personal request to grace the occasion with your presence.
+            <!-- Blessings Message Note -->
+            <div class="glass-card p-6 rounded-3xl border border-gold-500/40 text-amber-100/90 leading-relaxed font-body mt-8 text-center">
+                <p data-i18n="blessings_text1" class="text-sm sm:text-base">
+                    As we step into this beautiful journey of togetherness, your presence, blessings, and warm wishes will mean the world to us and our families.
                 </p>
             </div>
         </div>
@@ -636,12 +623,12 @@
             startCountdown();
         });
 
-        // 3D Parallax Gate & Layer Depth Engine
+        // 3D Parallax Gate & Layer Depth Engine (Optimized for Mobile Scroll Fluidity)
         function initParallaxEngine() {
             const gateLeft = document.getElementById('gate-left');
             const gateRight = document.getElementById('gate-right');
             const heroToran = document.getElementById('hero-toran');
-            const heroCard = document.getElementById('hero-card');
+            let isTicking = false;
 
             function updateParallax() {
                 const scrollY = window.scrollY;
@@ -651,11 +638,8 @@
                 if (scrollY < windowHeight * 1.5) {
                     const progress = Math.min(scrollY / (windowHeight * 0.75), 1);
                     
-                    // Gate pillars move sideways and scale outwards as you scroll down
-                    if (gateLeft) gateLeft.style.transform = `translate3d(-${progress * 65}%, 0, 0) scale(${1 + progress * 0.2})`;
-                    if (gateRight) gateRight.style.transform = `translate3d(${progress * 65}%, 0, 0) scale(${1 + progress * 0.2})`;
-                    
-                    // Top marigold toran lifts upward
+                    if (gateLeft) gateLeft.style.transform = `translate3d(-${progress * 65}%, 0, 0)`;
+                    if (gateRight) gateRight.style.transform = `translate3d(${progress * 65}%, 0, 0)`;
                     if (heroToran) heroToran.style.transform = `translate3d(0, -${progress * 50}px, 0)`;
                 }
 
@@ -666,19 +650,27 @@
                     if (rect.bottom >= -100 && rect.top <= windowHeight + 100) {
                         const layers = sec.querySelectorAll('.parallax-bg, .parallax-layer');
                         layers.forEach(layer => {
-                            if (layer.id === 'hero-toran') return; // Handled by 3D reveal logic above
+                            if (layer.id === 'hero-toran') return;
                             const speed = parseFloat(layer.getAttribute('data-speed')) || 0.25;
                             const centerOffset = (rect.top + rect.height / 2) - (windowHeight / 2);
-                            layer.style.transform = `translate3d(0px, ${centerOffset * speed}px, 0px) scale(1.1)`;
+                            layer.style.transform = `translate3d(0px, ${centerOffset * speed}px, 0px) scale(1.05)`;
                         });
                     }
                 });
-                requestAnimationFrame(updateParallax);
+                isTicking = false;
             }
-            requestAnimationFrame(updateParallax);
+
+            window.addEventListener('scroll', () => {
+                if (!isTicking) {
+                    requestAnimationFrame(updateParallax);
+                    isTicking = true;
+                }
+            }, { passive: true });
+
+            updateParallax();
         }
 
-        // Falling Flower Petals Canvas Engine
+        // Falling Flower Petals Canvas Engine (10 Petals for Smooth Mobile Performance)
         function setupFallingPetalsCanvas() {
             const canvas = document.getElementById('petals-canvas');
             const ctx = canvas.getContext('2d');
@@ -693,12 +685,12 @@
             const petals = [];
             const petalColors = ['#E33320', '#CC2210', '#F7CE68', '#E5AD35', '#FF8C00'];
 
-            for (let i = 0; i < 18; i++) {
+            for (let i = 0; i < 10; i++) {
                 petals.push({
                     x: Math.random() * canvas.width,
                     y: Math.random() * canvas.height,
                     size: Math.random() * 8 + 6,
-                    speedY: Math.random() * 2.5 + 2.0, // Increased fall speed for responsive mobile rendering
+                    speedY: Math.random() * 2.5 + 2.0,
                     speedX: Math.random() * 1.5 - 0.75,
                     color: petalColors[Math.floor(Math.random() * petalColors.length)],
                     angle: Math.random() * 360,
@@ -731,7 +723,6 @@
                     ctx.fill();
                     ctx.restore();
 
-                    // Delta time based movement (60fps scale factor ~60)
                     p.y += p.speedY * dt * 60;
                     p.x += p.speedX * dt * 60;
                     p.angle += p.spin * dt * 60;
@@ -777,13 +768,15 @@
                 ytPlayer.playVideo();
                 isPlayingYT = true;
                 musicBtn.classList.add('bg-gold-500', 'text-maroon-950');
-                musicIcon.className = 'fas fa-volume-high text-sm animate-pulse';
+                musicBtn.classList.remove('text-gold-300');
+                musicIcon.className = 'fas fa-volume-high text-xs animate-pulse';
                 musicText.innerText = 'Pause Music';
             } else {
                 ytPlayer.pauseVideo();
                 isPlayingYT = false;
                 musicBtn.classList.remove('bg-gold-500', 'text-maroon-950');
-                musicIcon.className = 'fas fa-music text-sm';
+                musicBtn.classList.add('text-gold-300');
+                musicIcon.className = 'fas fa-music text-xs';
                 musicText.innerText = 'Play Music';
             }
         }
