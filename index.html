@@ -95,20 +95,6 @@
             pointer-events: none;
             transition: transform 0.05s linear;
         }
-
-        /* 3D Foreground Reveal Gate Framing */
-        .hero-gate-left, .hero-gate-right {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 52vw;
-            z-index: 25;
-            pointer-events: none;
-            will-change: transform;
-            transition: transform 0.05s linear;
-        }
-        .hero-gate-left { left: 0; }
-        .hero-gate-right { right: 0; }
     </style>
     <!-- YouTube IFrame API -->
     <script src="https://www.youtube.com/iframe_api"></script>
@@ -136,8 +122,8 @@
     <!-- Falling Flower Petals Canvas -->
     <canvas id="petals-canvas" class="fixed inset-0 pointer-events-none z-30 w-full h-full"></canvas>
 
-    <!-- HERO SECTION: 3D PARALLAX ENTRANCE & INVOCATION -->
-    <header id="invocation-section" class="parallax-section min-h-[160vh] flex flex-col justify-between items-center text-center px-4 pt-12 pb-20 border-b border-gold-500/30">
+    <!-- HERO SECTION: PARALLAX ENTRANCE & INVOCATION -->
+    <header id="invocation-section" class="parallax-section min-h-screen flex flex-col justify-between items-center text-center px-4 pt-12 pb-16 border-b border-gold-500/30">
         <!-- COLORFUL DAKSHINESWAR KALI TEMPLE & HOOGHLY RIVER SVG PARALLAX BACKGROUND -->
         <svg class="parallax-bg opacity-85 w-full h-full object-cover" data-speed="0.1" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -164,10 +150,10 @@
             <!-- Background Sky -->
             <rect width="1440" height="900" fill="url(#sky-hero)"/>
             <!-- Sunburst Mandala Rays -->
-            <circle cx="720" cy="280" r="320" fill="#FFC72C" opacity="0.08"/>
-            <circle cx="720" cy="280" r="220" fill="#E2583E" opacity="0.12"/>
-            <!-- Dakshineswar Temple 9 Spires Architecture -->
-            <g transform="translate(430, 160) scale(0.68)">
+            <circle cx="720" cy="240" r="280" fill="#FFC72C" opacity="0.08"/>
+            <circle cx="720" cy="240" r="180" fill="#E2583E" opacity="0.12"/>
+            <!-- Dakshineswar Temple 9 Spires Architecture - Perfectly Centered & Compact -->
+            <g transform="translate(720, 110) scale(0.48) translate(-400, 0)">
                 <!-- Base Terrace -->
                 <rect x="100" y="320" width="600" height="120" fill="url(#temple-wall)" rx="6"/>
                 <rect x="80" y="440" width="640" height="40" fill="#9C2A1B"/>
@@ -237,49 +223,8 @@
             <circle cx="780" cy="92" r="6" fill="#F7CE68" opacity="0.3"/>
         </svg>
 
-        <!-- 3D FOREGROUND CURTAIN/GATE OVERLAYS (Parts that open up/scale outwards on scroll) -->
-        <div id="gate-left" class="hero-gate-left flex justify-start items-center">
-            <svg class="h-full w-full opacity-95 drop-shadow-2xl" viewBox="0 0 240 800" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Temple Pillar Left -->
-                <rect x="0" y="0" width="160" height="800" fill="#210306" stroke="#C28B1E" stroke-width="2"/>
-                <path d="M0 0 L200 0 L180 60 L0 60 Z" fill="#E33320"/>
-                <path d="M0 60 L180 60 L180 740 L0 740 Z" fill="url(#gold-grad-left)"/>
-                <!-- Hanging Marigold Garland -->
-                <circle cx="170" cy="120" r="14" fill="#F7CE68"/>
-                <circle cx="175" cy="180" r="16" fill="#E33320"/>
-                <circle cx="180" cy="240" r="14" fill="#F7CE68"/>
-                <line x1="170" y1="0" x2="180" y2="250" stroke="#E5AD35" stroke-width="3"/>
-                <defs>
-                    <linearGradient id="gold-grad-left" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%" stop-color="#3D0910"/>
-                        <stop offset="100%" stop-color="#58111A"/>
-                    </linearGradient>
-                </defs>
-            </svg>
-        </div>
-
-        <div id="gate-right" class="hero-gate-right flex justify-end items-center">
-            <svg class="h-full w-full opacity-95 drop-shadow-2xl" viewBox="0 0 240 800" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Temple Pillar Right -->
-                <rect x="80" y="0" width="160" height="800" fill="#210306" stroke="#C28B1E" stroke-width="2"/>
-                <path d="M40 0 L240 0 L240 60 L60 60 Z" fill="#E33320"/>
-                <path d="M60 60 L240 60 L240 740 L60 740 Z" fill="url(#gold-grad-right)"/>
-                <!-- Hanging Marigold Garland -->
-                <circle cx="70" cy="120" r="14" fill="#F7CE68"/>
-                <circle cx="65" cy="180" r="16" fill="#E33320"/>
-                <circle cx="60" cy="240" r="14" fill="#F7CE68"/>
-                <line x1="70" y1="0" x2="60" y2="250" stroke="#E5AD35" stroke-width="3"/>
-                <defs>
-                    <linearGradient id="gold-grad-right" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%" stop-color="#58111A"/>
-                        <stop offset="100%" stop-color="#3D0910"/>
-                    </linearGradient>
-                </defs>
-            </svg>
-        </div>
-
         <!-- Layer 4: Top Hanging Marigold Toran / Archway (Speed 0.5) -->
-        <svg id="hero-toran" class="parallax-layer z-20 top-0 h-28 sm:h-40 w-full pointer-events-none" data-speed="0.5" viewBox="0 0 1200 150" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <svg id="hero-toran" class="parallax-layer z-20 top-0 h-24 sm:h-36 w-full pointer-events-none" data-speed="0.5" viewBox="0 0 1200 150" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0,0 L1200,0 L1200,20 Q1050,70 900,20 Q750,70 600,20 Q450,70 300,20 Q150,70 0,20 Z" fill="#E33320" opacity="0.85"/>
             <!-- Hanging Golden Balls / Bells -->
             <circle cx="150" cy="45" r="8" fill="#F7CE68"/>
@@ -290,20 +235,20 @@
         </svg>
 
         <!-- Overlay Dark Gradient -->
-        <div class="absolute inset-0 bg-gradient-to-b from-maroon-950/85 via-maroon-950/70 to-maroon-950/95 pointer-events-none z-10"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-maroon-950/80 via-maroon-950/65 to-maroon-950/95 pointer-events-none z-10"></div>
 
-        <!-- Initial Temple View Scroll Prompt -->
-        <div class="relative z-20 flex flex-col items-center gap-2 mt-[32vh] sm:mt-[35vh] lg:mt-[38vh]">
+        <!-- Initial Scroll Prompt -->
+        <div class="relative z-20 flex flex-col items-center gap-2 mt-20 sm:mt-24">
             <span class="text-xs sm:text-sm tracking-[0.3em] text-gold-300 uppercase font-sans font-semibold drop-shadow-md bg-maroon-950/80 px-4 py-1.5 rounded-full border border-gold-500/40 backdrop-blur-sm">
-                Scroll Down To Reveal Invitation
+                Scroll Down To Explore Invitation
             </span>
             <a href="#hero-card" class="w-7 h-11 border-2 border-gold-400/80 rounded-full flex justify-center pt-2 hover:border-gold-300 transition-colors bg-maroon-950/60 shadow-lg">
                 <div class="w-1.5 h-2.5 bg-gold-400 rounded-full animate-bounce"></div>
             </a>
         </div>
 
-        <!-- Hero Content Card (Positioned below the main temple view) -->
-        <div id="hero-card" class="relative z-20 max-w-4xl mx-auto mt-[20vh] sm:mt-[25vh] lg:mt-[30vh] mb-12 pt-10 pb-8 transition-transform duration-75">
+        <!-- Hero Content Card -->
+        <div id="hero-card" class="relative z-20 max-w-4xl mx-auto mt-8 sm:mt-12 mb-6 pt-6 pb-8 transition-transform duration-75">
             <!-- Auspicious Bengali & Hindi Blessings -->
             <div class="inline-flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 px-6 py-3 rounded-2xl bg-maroon-900/90 border border-gold-500/60 backdrop-blur-md mb-6 shadow-2xl">
                 <span data-i18n="invocation" class="text-gold-400 font-hindi tracking-widest text-base sm:text-xl font-bold">
@@ -315,7 +260,7 @@
                 Together with their families, cordially invite you
             </p>
 
-            <!-- Groom Name & Parents (FIXED: Responsive font size & overflow protection) -->
+            <!-- Groom Name & Parents -->
             <h1 class="font-script text-4xl sm:text-6xl md:text-7xl gold-text mb-1 leading-tight drop-shadow-2xl px-2 break-words max-w-full">
                 Gourav Roy
             </h1>
@@ -332,7 +277,7 @@
                 <div class="h-[1px] w-16 sm:w-28 bg-gradient-to-r from-transparent via-gold-400 to-transparent"></div>
             </div>
 
-            <!-- Bride Name & Parents (FIXED: Responsive font size & overflow protection) -->
+            <!-- Bride Name & Parents -->
             <h1 class="font-script text-4xl sm:text-6xl md:text-7xl gold-text mt-1 leading-tight drop-shadow-2xl px-2 break-words max-w-full">
                 Debanjana Sarkar
             </h1>
@@ -372,8 +317,8 @@
                 </linearGradient>
             </defs>
             <rect width="1440" height="900" fill="url(#sky-bridge)"/>
-            <!-- Howrah Bridge Cantilever Arch Lattice -->
-            <g transform="translate(720, 480) scale(0.68) translate(-720, -480)">
+            <!-- Howrah Bridge Cantilever Arch Lattice - Rescaled & Centered -->
+            <g transform="translate(720, 420) scale(0.46) translate(-720, -420)">
                 <g stroke="url(#steel-blue)" stroke-width="5" fill="none">
                     <!-- Main Tower Left -->
                     <path d="M 250,800 L 350,150 L 450,800 Z"/>
@@ -398,8 +343,8 @@
             <rect x="0" y="580" width="1440" height="120" fill="#1A202C"/>
             <line x1="0" y1="640" x2="1440" y2="640" stroke="#F6E05E" stroke-width="4" stroke-dasharray="20 15"/>
             
-            <!-- Iconic Yellow Ambassador Taxi -->
-            <g transform="translate(750, 608) scale(0.68)">
+            <!-- Iconic Yellow Ambassador Taxi - Centered -->
+            <g transform="translate(780, 615) scale(0.5) translate(-140, 0)">
                 <path d="M20,40 Q40,10 90,10 L160,10 Q200,10 220,40 L260,45 Q280,45 280,65 L280,80 L0,80 L0,60 Q0,45 20,40 Z" fill="#FFC72C" stroke="#D69E2E" stroke-width="3"/>
                 <path d="M50,20 L100,20 L100,40 L40,40 Z" fill="#E2E8F0" opacity="0.8"/>
                 <path d="M110,20 L170,20 L175,40 L110,40 Z" fill="#E2E8F0" opacity="0.8"/>
@@ -411,7 +356,7 @@
             </g>
 
             <!-- Classic Kolkata Green Tram -->
-            <g transform="translate(420, 600) scale(0.65)">
+            <g transform="translate(420, 610) scale(0.45) translate(-150, 0)">
                 <rect x="0" y="10" width="300" height="65" rx="8" fill="#276749" stroke="#38A169" stroke-width="3"/>
                 <rect x="10" y="0" width="280" height="10" rx="4" fill="#E2E8F0"/>
                 <rect x="20" y="22" width="30" height="30" rx="4" fill="#FEFCBF"/>
@@ -504,8 +449,8 @@
             </defs>
             <rect width="1440" height="900" fill="url(#sky-victoria)"/>
             
-            <!-- Victoria Memorial Palace Facade -->
-            <g transform="translate(430, 290) scale(0.62)">
+            <!-- Victoria Memorial Palace Facade - Centered -->
+            <g transform="translate(720, 260) scale(0.42) translate(-500, 0)">
                 <rect x="100" y="200" width="800" height="150" fill="url(#marble-white)" rx="4"/>
                 <rect x="400" y="150" width="200" height="200" fill="url(#marble-white)"/>
                 <!-- Pillars -->
@@ -623,28 +568,14 @@
             startCountdown();
         });
 
-        // 3D Parallax Gate & Layer Depth Engine (Optimized for Mobile Scroll Fluidity)
+        // Parallax Engine Optimized for Smooth Mobile Scrolling
         function initParallaxEngine() {
-            const gateLeft = document.getElementById('gate-left');
-            const gateRight = document.getElementById('gate-right');
-            const heroToran = document.getElementById('hero-toran');
             let isTicking = false;
 
             function updateParallax() {
-                const scrollY = window.scrollY;
                 const windowHeight = window.innerHeight;
-
-                // 3D Curtain Gate Reveal Effect in Hero Section
-                if (scrollY < windowHeight * 1.5) {
-                    const progress = Math.min(scrollY / (windowHeight * 0.75), 1);
-                    
-                    if (gateLeft) gateLeft.style.transform = `translate3d(-${progress * 65}%, 0, 0)`;
-                    if (gateRight) gateRight.style.transform = `translate3d(${progress * 65}%, 0, 0)`;
-                    if (heroToran) heroToran.style.transform = `translate3d(0, -${progress * 50}px, 0)`;
-                }
-
-                // Standard Section Parallax
                 const sections = document.querySelectorAll('.parallax-section');
+                
                 sections.forEach(sec => {
                     const rect = sec.getBoundingClientRect();
                     if (rect.bottom >= -100 && rect.top <= windowHeight + 100) {
