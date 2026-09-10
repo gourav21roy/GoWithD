@@ -24,7 +24,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ language, onOpenCalend
              (Pure moving clouds, starry sky, and floating lanterns revealed when curtains open) */}
       <section
         id="celestial-sky-filler"
-        className="relative min-h-screen w-full flex flex-col justify-center items-center overflow-hidden select-none pointer-events-none"
+        className="relative min-h-[105vh] sm:min-h-screen w-full flex flex-col justify-center items-center overflow-hidden select-none pointer-events-none"
       >
         {/* Animated Moving Clouds, Twinkling Stars, Moon & Constellations */}
         <CelestialCloudSky />
@@ -33,14 +33,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ language, onOpenCalend
         <FloatingLanterns />
 
         {/* Subtle gradient blend transitioning smoothly into the Hero section */}
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent via-[#020512]/60 to-[#020512] pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-24 sm:h-32 bg-gradient-to-b from-transparent via-[#020512]/60 to-[#020512] pointer-events-none" />
       </section>
 
       {/* 2. HERO SECTION: Royal Wedding Invitation Card
              (Revealed when user scrolls past the celestial sky) */}
       <section
         id="hero-section"
-        className="relative z-20 min-h-screen w-full flex flex-col justify-center items-center px-3 sm:px-4 py-16 sm:py-24 overflow-hidden bg-gradient-to-b from-[#020512] via-[#0D1934] to-[#0A1630]"
+        className="relative z-20 min-h-0 sm:min-h-screen w-full flex flex-col justify-center items-center px-3 sm:px-4 pt-8 sm:pt-40 pb-12 sm:pb-24 -mt-12 sm:mt-0 overflow-hidden bg-gradient-to-b from-[#020512] via-[#0D1934] to-[#0A1630]"
       >
         {/* Floating Lanterns Background Effect slowly drifting upwards */}
         <FloatingLanterns />
@@ -66,7 +66,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ language, onOpenCalend
         </div>
 
         {/* Scroll anchor target for smooth navigation */}
-        <div id="hero-invitation-container" className="w-full max-w-4xl mx-auto flex flex-col items-center my-auto transition-all duration-700 ease-out">
+        <div id="hero-invitation-container" className="w-full max-w-4xl mx-auto flex flex-col items-center mt-2 mb-auto sm:my-auto transition-all duration-700 ease-out">
           {/* Main Invitation Card Content */}
           <div className="relative z-30 max-w-2xl w-full mx-auto text-center px-2">
             <div className="glass-card-maroon rounded-3xl p-5 sm:p-9 border-2 border-[#D4AF37]/65 shadow-[0_25px_60px_rgba(0,0,0,0.85)] space-y-5 sm:space-y-6 transform transition-all duration-300">
