@@ -26,9 +26,11 @@ const LANTERNS: LanternData[] = [
 ];
 
 export const FloatingLanterns: React.FC = () => {
+  const travelDistance = typeof window !== 'undefined' ? -(window.innerHeight * 1.6) : -1200;
+
   return (
     <div
-      className="absolute inset-0 overflow-hidden pointer-events-none z-10"
+      className="absolute inset-0 overflow-hidden pointer-events-none"
       aria-hidden="true"
     >
       {LANTERNS.map((lantern) => (
@@ -43,7 +45,7 @@ export const FloatingLanterns: React.FC = () => {
             opacity: lantern.opacity
           }}
           animate={{
-            y: [0, -window.innerHeight * 1.5],
+            y: [0, travelDistance],
             x: [0, lantern.sway, -lantern.sway * 0.7, lantern.sway * 0.5, 0],
             rotate: [-2, 3, -3, 2, -2]
           }}

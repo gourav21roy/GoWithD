@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Language } from './types';
+import { useState, useEffect } from 'react';
+import { Language, GuestSide } from './types';
 import { PetalsCanvas } from './components/PetalsCanvas';
 import { HeaderNav } from './components/HeaderNav';
 import { HeroSection } from './components/HeroSection';
@@ -9,12 +9,41 @@ import { EventsSection } from './components/EventsSection';
 import { VictoriaMemorialSection } from './components/VictoriaMemorialSection';
 import { BlessingsGuestbook } from './components/BlessingsGuestbook';
 import { Footer } from './components/Footer';
-import { ShareModal } from './components/ShareModal';
 
 export default function App() {
   const [language, setLanguage] = useState<Language>('en');
-  const [isShareOpen, setIsShareOpen] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState<'wedding' | 'reception' | null>(null);
+
+  // Guest side is strictly URL-controlled via query parameter (?side=bride / ?side=groom / ?side=all)
+  const [guestSide, setGuestSide] = useState<GuestSide>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const sideParam = (params.get('side') || params.get('event') || params.get('view') || '').toLowerCase();
+        if (sideParam === 'bride' || sideParam === 'girl' || sideParam === 'wedding') return 'bride';
+        if (sideParam === 'groom' || sideParam === 'boy' || sideParam === 'reception') return 'groom';
+      } catch {}
+    }
+    return 'all';
+  });
+
+  useEffect(() => {
+    const onPopState = () => {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const sideParam = (params.get('side') || params.get('event') || params.get('view') || '').toLowerCase();
+        if (sideParam === 'bride' || sideParam === 'girl' || sideParam === 'wedding') {
+          setGuestSide('bride');
+        } else if (sideParam === 'groom' || sideParam === 'boy' || sideParam === 'reception') {
+          setGuestSide('groom');
+        } else {
+          setGuestSide('all');
+        }
+      } catch {}
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
 
   const handleOpenCalendar = () => {
     const el = document.getElementById('calendar-section');
@@ -36,7 +65,6 @@ export default function App() {
       <HeaderNav
         language={language}
         onLanguageChange={setLanguage}
-        onOpenShare={() => setIsShareOpen(true)}
       />
 
       {/* Main Content Sections */}
@@ -45,6 +73,7 @@ export default function App() {
         <HeroSection
           language={language}
           onOpenCalendar={handleOpenCalendar}
+          guestSide={guestSide}
         />
 
         {/* Dakshineswar Kali Temple & Hooghly River Heritage Section */}
@@ -56,12 +85,14 @@ export default function App() {
         <CalendarCountdownSection
           language={language}
           onSelectEventDate={handleSelectEventDate}
+          guestSide={guestSide}
         />
 
         {/* Auspicious Events & Venues with Google Maps Directions */}
         <EventsSection
           language={language}
           selectedEventId={selectedEventId}
+          guestSide={guestSide}
         />
 
         {/* Victoria Memorial Parallax Illustration */}
@@ -77,13 +108,6 @@ export default function App() {
 
       {/* Footer */}
       <Footer language={language} />
-
-      {/* Share & QR Code Modal */}
-      <ShareModal
-        isOpen={isShareOpen}
-        onClose={() => setIsShareOpen(false)}
-        language={language}
-      />
     </div>
   );
 }

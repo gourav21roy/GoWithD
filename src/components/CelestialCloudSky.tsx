@@ -3,80 +3,156 @@ import { motion } from 'motion/react';
 
 interface CelestialCloudSkyProps {
   className?: string;
+  children?: React.ReactNode;
 }
 
-// Mobile-responsive star coordinates distributed across the entire vertical viewport
-const STARS = [
-  // Upper Sky Stars (around & above moon)
-  { id: 1, left: '12%', top: '8%', size: 2.2, delay: 0.2, type: 'dot', color: '#FFFDF5' },
-  { id: 2, left: '25%', top: '14%', size: 3.2, delay: 1.1, type: 'diamond', color: '#FDE68A' },
-  { id: 3, left: '42%', top: '7%', size: 1.8, delay: 2.3, type: 'dot', color: '#FFF8E7' },
-  { id: 4, left: '78%', top: '10%', size: 3.0, delay: 0.8, type: 'diamond', color: '#FEF08A' },
-  { id: 5, left: '88%', top: '16%', size: 2.0, delay: 1.7, type: 'dot', color: '#FFFDF5' },
-  { id: 6, left: '6%', top: '22%', size: 2.5, delay: 0.5, type: 'dot', color: '#FDE68A' },
-  { id: 7, left: '32%', top: '20%', size: 1.8, delay: 2.6, type: 'dot', color: '#FFFDF5' },
-
-  // Mid Sky Stars
-  { id: 8, left: '18%', top: '32%', size: 3.4, delay: 1.4, type: 'diamond', color: '#FFFDF5' },
-  { id: 9, left: '84%', top: '28%', size: 2.2, delay: 0.3, type: 'dot', color: '#FDE68A' },
-  { id: 10, left: '92%', top: '38%', size: 1.9, delay: 2.1, type: 'dot', color: '#FFF8E7' },
-  { id: 11, left: '8%', top: '44%', size: 2.8, delay: 1.9, type: 'diamond', color: '#FEF08A' },
-  { id: 12, left: '28%', top: '42%', size: 1.6, delay: 0.7, type: 'dot', color: '#FFFDF5' },
-  { id: 13, left: '76%', top: '48%', size: 2.4, delay: 1.2, type: 'dot', color: '#FDE68A' },
-
-  // Lower Sky Stars
-  { id: 14, left: '14%', top: '56%', size: 2.0, delay: 2.4, type: 'dot', color: '#FFF8E7' },
-  { id: 15, left: '82%', top: '62%', size: 3.0, delay: 0.9, type: 'diamond', color: '#FFFDF5' },
-  { id: 16, left: '22%', top: '68%', size: 1.8, delay: 1.5, type: 'dot', color: '#FDE68A' },
-  { id: 17, left: '70%', top: '74%', size: 2.2, delay: 2.0, type: 'dot', color: '#FFFDF5' },
-  { id: 18, left: '36%', top: '78%', size: 1.6, delay: 0.4, type: 'dot', color: '#FEF08A' },
-  { id: 19, left: '88%', top: '82%', size: 2.5, delay: 1.8, type: 'dot', color: '#FFF8E7' },
-  { id: 20, left: '10%', top: '86%', size: 2.0, delay: 2.7, type: 'dot', color: '#FDE68A' },
-  { id: 21, left: '55%', top: '88%', size: 1.7, delay: 1.0, type: 'dot', color: '#FFFDF5' },
+// Mobile-responsive star coordinates distributed across the celestial canvas
+const BACKGROUND_STARS = [
+  // Upper sky background stars (visible even during curtain opening)
+  { id: 'bg-1', left: '10%', top: '4%', size: 2.0, delay: 0.2, type: 'dot', color: '#FFFDF5' },
+  { id: 'bg-2', left: '22%', top: '8%', size: 2.8, delay: 1.1, type: 'diamond', color: '#FDE68A' },
+  { id: 'bg-3', left: '48%', top: '5%', size: 1.8, delay: 2.3, type: 'dot', color: '#FFF8E7' },
+  { id: 'bg-4', left: '72%', top: '7%', size: 2.6, delay: 0.8, type: 'diamond', color: '#FEF08A' },
+  { id: 'bg-5', left: '88%', top: '10%', size: 2.0, delay: 1.7, type: 'dot', color: '#FFFDF5' },
+  { id: 'bg-6', left: '35%', top: '12%', size: 1.6, delay: 0.5, type: 'dot', color: '#FDE68A' },
+  { id: 'bg-7', left: '60%', top: '14%', size: 2.4, delay: 2.0, type: 'diamond', color: '#FFF8E7' },
 ];
 
-export const CelestialCloudSky: React.FC<CelestialCloudSkyProps> = ({ className = '' }) => {
+const STAGE_STARS = [
+  // Upper Sky Stars (around & above the crescent moon)
+  { id: 1, left: '14%', top: '6%', size: 2.4, delay: 0.3, type: 'dot', color: '#FFFDF5' },
+  { id: 2, left: '28%', top: '10%', size: 3.2, delay: 1.2, type: 'diamond', color: '#FDE68A' },
+  { id: 3, left: '44%', top: '8%', size: 1.9, delay: 2.1, type: 'dot', color: '#FFF8E7' },
+  { id: 4, left: '68%', top: '12%', size: 3.0, delay: 0.7, type: 'diamond', color: '#FEF08A' },
+  { id: 5, left: '86%', top: '6%', size: 2.2, delay: 1.5, type: 'dot', color: '#FFFDF5' },
+  { id: 6, left: '8%', top: '18%', size: 2.6, delay: 0.4, type: 'dot', color: '#FDE68A' },
+  { id: 7, left: '34%', top: '16%', size: 1.8, delay: 2.5, type: 'dot', color: '#FFFDF5' },
+
+  // Mid Sky Stars (framing the drifting clouds)
+  { id: 8, left: '16%', top: '30%', size: 3.4, delay: 1.3, type: 'diamond', color: '#FFFDF5' },
+  { id: 9, left: '82%', top: '26%', size: 2.4, delay: 0.5, type: 'dot', color: '#FDE68A' },
+  { id: 10, left: '92%', top: '34%', size: 2.0, delay: 2.0, type: 'dot', color: '#FFF8E7' },
+  { id: 11, left: '9%', top: '42%', size: 2.8, delay: 1.8, type: 'diamond', color: '#FEF08A' },
+  { id: 12, left: '26%', top: '38%', size: 1.6, delay: 0.9, type: 'dot', color: '#FFFDF5' },
+  { id: 13, left: '74%', top: '44%', size: 2.5, delay: 1.4, type: 'dot', color: '#FDE68A' },
+  { id: 14, left: '50%', top: '32%', size: 2.0, delay: 2.7, type: 'dot', color: '#FFF8E7' },
+
+  // Lower Sky Stars (twinkling above horizon mist)
+  { id: 15, left: '15%', top: '56%', size: 2.2, delay: 2.3, type: 'dot', color: '#FFF8E7' },
+  { id: 16, left: '84%', top: '60%', size: 3.0, delay: 0.8, type: 'diamond', color: '#FFFDF5' },
+  { id: 17, left: '24%', top: '66%', size: 1.8, delay: 1.6, type: 'dot', color: '#FDE68A' },
+  { id: 18, left: '68%', top: '70%', size: 2.2, delay: 1.9, type: 'dot', color: '#FFFDF5' },
+  { id: 19, left: '38%', top: '74%', size: 1.7, delay: 0.4, type: 'dot', color: '#FEF08A' },
+  { id: 20, left: '88%', top: '78%', size: 2.6, delay: 1.7, type: 'dot', color: '#FFF8E7' },
+  { id: 21, left: '12%', top: '82%', size: 2.0, delay: 2.6, type: 'dot', color: '#FDE68A' },
+  { id: 22, left: '56%', top: '84%', size: 1.8, delay: 1.1, type: 'dot', color: '#FFFDF5' },
+];
+
+export const CelestialCloudSky: React.FC<CelestialCloudSkyProps> = ({ className = '', children }) => {
   return (
     <div className={`absolute inset-0 overflow-hidden pointer-events-none select-none ${className}`}>
-      {/* 1. Deep Midnight Royal Sky Gradient with Deep Cosmic Violet Undertones */}
+      {/* ========================================================================= */}
+      {/* 1. LAYER 0: Deep Midnight Royal Sky Gradient (Full section backdrop)      */}
+      {/* ========================================================================= */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#020512] via-[#040E26] to-[#0A1630]" />
 
-      {/* 2. Celestial Visual Stage: Offset by 240px on mobile to compensate for the scroll needed to part the curtains */}
-      <div className="absolute inset-x-0 top-[220px] sm:top-0 bottom-0 overflow-hidden pointer-events-none">
-        {/* Soft Ambient Galactic Nebula Glow behind Moon */}
+      {/* ========================================================================= */}
+      {/* 2. LAYER 1: Deep Background Stars (Visible throughout opening sequence)   */}
+      {/* ========================================================================= */}
+      <div className="absolute inset-0 pointer-events-none z-[1]">
+        {BACKGROUND_STARS.map((star) => (
+          <div
+            key={star.id}
+            className="absolute rounded-full animate-pulse"
+            style={{
+              left: star.left,
+              top: star.top,
+              width: `${star.size}px`,
+              height: `${star.size}px`,
+              backgroundColor: star.color,
+              boxShadow: `0 0 6px ${star.color}99`,
+              animationDuration: `${2 + (Number(star.id.slice(-1)) % 3) * 0.8}s`,
+              animationDelay: `${star.delay}s`
+            }}
+          />
+        ))}
+      </div>
+
+      {/* ========================================================================= */}
+      {/* 3. REVEALED CELESTIAL STAGE: Offset for Curtain Scroll Threshold (240px)   */}
+      {/*    Begins at top: 260px on mobile, 240px on desktop so all celestial       */}
+      {/*    elements are framed right in the viewport once curtains are parted.     */}
+      {/* ========================================================================= */}
+      <div className="absolute inset-x-0 top-[260px] sm:top-[240px] bottom-0 overflow-hidden pointer-events-none">
+
+        {/* ----------------------------------------------------------------------- */}
+        {/* A. Soft Ambient Cosmic Nebula Glow behind Moon (z-[2])                  */}
+        {/* ----------------------------------------------------------------------- */}
         <div
-          className="absolute top-2 sm:top-[8%] right-2 sm:right-[18%] w-[280px] h-[280px] sm:w-[420px] sm:h-[420px] rounded-full pointer-events-none"
+          className="absolute -top-6 sm:top-2 right-1 sm:right-10 md:right-16 w-72 h-72 sm:w-96 sm:h-96 rounded-full pointer-events-none z-[2]"
           style={{
-            background: 'radial-gradient(circle, rgba(253, 230, 138, 0.14) 0%, rgba(245, 158, 11, 0.07) 45%, rgba(4, 14, 38, 0) 70%)',
-            filter: 'blur(30px)'
+            background: 'radial-gradient(circle, rgba(253, 230, 138, 0.16) 0%, rgba(245, 158, 11, 0.08) 45%, rgba(4, 14, 38, 0) 70%)',
+            filter: 'blur(32px)'
           }}
         />
 
-        {/* Auspicious Constellation Lines (Sacred Saptarshi / Nakshatra) */}
-        <svg className="absolute inset-0 w-full h-full opacity-35 sm:opacity-45 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
-          {/* Constellation in upper-left sky */}
-          <polyline
-            points="35,60 80,35 130,70 180,48 225,90"
-            fill="none"
-            stroke="#FDE68A"
-            strokeWidth="0.8"
-            strokeDasharray="3 4"
-          />
-          {/* Constellation in mid-right sky */}
-          <polyline
-            points="260,260 310,230 360,275 410,245"
-            fill="none"
-            stroke="#FDE68A"
-            strokeWidth="0.8"
-            strokeDasharray="3 4"
-          />
+        {/* ----------------------------------------------------------------------- */}
+        {/* B. Auspicious Nakshatra Constellations with responsive scaling (z-[3])  */}
+        {/* ----------------------------------------------------------------------- */}
+        <svg
+          className="absolute inset-0 w-full h-full opacity-40 sm:opacity-50 pointer-events-none z-[3]"
+          viewBox="0 0 850 650"
+          preserveAspectRatio="xMidYMid slice"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {/* Saptarshi / Sacred Seven Rishis (Ursa Major) in Upper-Left Sky */}
+          <g>
+            <polyline
+              points="70,95 125,70 185,105 245,80 295,120 300,175 240,170 245,80"
+              fill="none"
+              stroke="#FDE68A"
+              strokeWidth="0.9"
+              strokeDasharray="3 4"
+            />
+            {/* Glowing Constellation Star Nodes */}
+            {[
+              [70, 95], [125, 70], [185, 105], [245, 80],
+              [295, 120], [300, 175], [240, 170]
+            ].map(([cx, cy], i) => (
+              <g key={`saptarshi-node-${i}`}>
+                <circle cx={cx} cy={cy} r="5" fill="#FDE68A" fillOpacity="0.25" />
+                <circle cx={cx} cy={cy} r="2.2" fill="#FFFDF5" />
+              </g>
+            ))}
+          </g>
+
+          {/* Rohini / Sacred Wedding Nakshatra in Upper-Mid / Right Sky */}
+          <g>
+            <polyline
+              points="540,220 590,185 650,225 700,195 675,265"
+              fill="none"
+              stroke="#FDE68A"
+              strokeWidth="0.8"
+              strokeDasharray="3 4"
+            />
+            {[
+              [540, 220], [590, 185], [650, 225], [700, 195], [675, 265]
+            ].map(([cx, cy], i) => (
+              <g key={`rohini-node-${i}`}>
+                <circle cx={cx} cy={cy} r="4" fill="#FDE68A" fillOpacity="0.2" />
+                <circle cx={cx} cy={cy} r="2" fill="#FFFDF5" />
+              </g>
+            ))}
+          </g>
         </svg>
 
-        {/* Twinkling Stars Across the Entire Mobile & Desktop Canvas */}
-        <div className="absolute inset-0 pointer-events-none">
-          {STARS.map((star) => (
+        {/* ----------------------------------------------------------------------- */}
+        {/* C. Twinkling Stars in the Celestial Stage (z-[4])                       */}
+        {/* ----------------------------------------------------------------------- */}
+        <div className="absolute inset-0 pointer-events-none z-[4]">
+          {STAGE_STARS.map((star) => (
             <div
-              key={`celestial-star-${star.id}`}
+              key={`stage-star-${star.id}`}
               className="absolute"
               style={{
                 left: star.left,
@@ -93,12 +169,10 @@ export const CelestialCloudSky: React.FC<CelestialCloudSkyProps> = ({ className 
                     animationDelay: `${star.delay}s`
                   }}
                 >
-                  {/* Outer Glow */}
                   <div
                     className="absolute w-6 h-6 rounded-full blur-[3px]"
                     style={{ backgroundColor: `${star.color}40` }}
                   />
-                  {/* Diamond Flare */}
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                     <polygon
                       points="7,0 8.5,5.5 14,7 8.5,8.5 7,14 5.5,8.5 0,7 5.5,5.5"
@@ -125,11 +199,12 @@ export const CelestialCloudSky: React.FC<CelestialCloudSkyProps> = ({ className 
           ))}
         </div>
 
-        {/* ========================================================================= */}
-        {/* RADIANT CRESCENT MOON (Prominently placed & visible on all screen sizes)  */}
-        {/* ========================================================================= */}
+        {/* ----------------------------------------------------------------------- */}
+        {/* D. RADIANT CRESCENT MOON & EVENING STAR (z-[10])                        */}
+        {/*    Placed near the top of the revealed viewport on mobile & desktop     */}
+        {/* ----------------------------------------------------------------------- */}
         <div
-          className="absolute top-4 sm:top-14 right-5 sm:right-20 z-20 pointer-events-none flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24"
+          className="absolute top-4 sm:top-8 right-5 sm:right-14 md:right-20 z-[10] pointer-events-none flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28"
         >
           {/* Outer Lunar Corona Halos */}
           <div
@@ -146,10 +221,10 @@ export const CelestialCloudSky: React.FC<CelestialCloudSkyProps> = ({ className 
             }}
           />
 
-          {/* Crisp Vector Crescent Moon & Companion Auspicious Star */}
+          {/* Vector Crescent Moon with Defs and Auspicious Shukra Star */}
           <svg
             viewBox="0 0 100 100"
-            className="w-16 h-16 sm:w-20 sm:h-20 drop-shadow-[0_0_18px_rgba(254,240,138,0.9)]"
+            className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 drop-shadow-[0_0_18px_rgba(254,240,138,0.9)]"
             xmlns="http://www.w3.org/2000/svg"
           >
             <defs>
@@ -198,14 +273,15 @@ export const CelestialCloudSky: React.FC<CelestialCloudSkyProps> = ({ className 
           </svg>
         </div>
 
-        {/* ========================================================================= */}
-        {/* CLOUD LAYER 1: HIGH-ALTITUDE MOONLIT CIRRUS VEIL (Drifting Slowly R)     */}
-        {/* ========================================================================= */}
+        {/* ----------------------------------------------------------------------- */}
+        {/* E. CLOUD LAYER 1: HIGH-ALTITUDE MOONLIT CIRRUS VEIL (z-[15])            */}
+        {/*    Wispy, semi-transparent veil drifting across the upper sky           */}
+        {/* ----------------------------------------------------------------------- */}
         <motion.div
-          className="absolute top-[8%] sm:top-[6%] left-0 w-[200%] h-40 sm:h-52 pointer-events-none"
+          className="absolute top-[10%] sm:top-[8%] left-0 w-[200%] h-36 sm:h-48 md:h-56 pointer-events-none z-[15]"
           style={{
-            maskImage: 'linear-gradient(to bottom, transparent 0%, black 30%, black 75%, transparent 100%)',
-            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 30%, black 75%, transparent 100%)',
+            maskImage: 'linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%)',
             opacity: 0.45
           }}
           animate={{
@@ -240,14 +316,25 @@ export const CelestialCloudSky: React.FC<CelestialCloudSkyProps> = ({ className 
           </svg>
         </motion.div>
 
-        {/* ========================================================================= */}
-        {/* CLOUD LAYER 2: MID-SKY MAJESTIC MOONLIT CUMULUS (Drifting Slowly L)       */}
-        {/* ========================================================================= */}
+        {/* ----------------------------------------------------------------------- */}
+        {/* F. FLOATING LANTERNS SLOT (z-[20])                                      */}
+        {/*    Drifts upwards between the cirrus veil and mid-cumulus clouds        */}
+        {/* ----------------------------------------------------------------------- */}
+        {children && (
+          <div className="absolute inset-0 pointer-events-none z-[20]">
+            {children}
+          </div>
+        )}
+
+        {/* ----------------------------------------------------------------------- */}
+        {/* G. CLOUD LAYER 2: MID-SKY MOONLIT CUMULUS (z-[25])                      */}
+        {/*    Billowing voluminous clouds with warm gold and silver rim highlights */}
+        {/* ----------------------------------------------------------------------- */}
         <motion.div
-          className="absolute top-[36%] sm:top-[34%] left-0 w-[200%] h-64 sm:h-80 pointer-events-none"
+          className="absolute top-[42%] sm:top-[38%] left-0 w-[200%] h-56 sm:h-72 md:h-84 pointer-events-none z-[25]"
           style={{
-            maskImage: 'linear-gradient(to bottom, transparent 0%, black 22%, black 78%, transparent 100%)',
-            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 22%, black 78%, transparent 100%)',
+            maskImage: 'linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)',
             opacity: 0.65
           }}
           animate={{
@@ -270,6 +357,7 @@ export const CelestialCloudSky: React.FC<CelestialCloudSkyProps> = ({ className 
               </linearGradient>
             </defs>
 
+            {/* Main billowing cloud shape (Repeats seamlessly at x=800) */}
             <path
               d="M 0 200 
                  C 50 130, 110 110, 170 145 
@@ -284,6 +372,7 @@ export const CelestialCloudSky: React.FC<CelestialCloudSkyProps> = ({ className 
               fill="url(#cumulusMoonlitGrad)"
             />
 
+            {/* Soft secondary depth puff */}
             <path
               d="M 0 230 
                  C 80 170, 160 160, 230 195 
@@ -295,19 +384,19 @@ export const CelestialCloudSky: React.FC<CelestialCloudSkyProps> = ({ className 
                  C 1480 160, 1560 165, 1600 200 
                  L 1600 320 L 0 320 Z"
               fill="url(#cirrusGrad)"
-              opacity="0.6"
+              opacity="0.55"
             />
           </svg>
         </motion.div>
 
-        {/* ========================================================================= */}
-        {/* CLOUD LAYER 3: LOWER HORIZON MIST & WARM AMBER HAZE (Drifting R)          */}
-        {/* ========================================================================= */}
+        {/* ----------------------------------------------------------------------- */}
+        {/* H. CLOUD LAYER 3: LOWER HORIZON MIST & WARM AMBER HAZE (z-[30])         */}
+        {/* ----------------------------------------------------------------------- */}
         <motion.div
-          className="absolute bottom-0 left-0 w-[200%] h-48 sm:h-60 pointer-events-none"
+          className="absolute bottom-0 left-0 w-[200%] h-40 sm:h-52 md:h-60 pointer-events-none z-[30]"
           style={{
-            maskImage: 'linear-gradient(to top, black 20%, transparent 100%)',
-            WebkitMaskImage: 'linear-gradient(to top, black 20%, transparent 100%)',
+            maskImage: 'linear-gradient(to top, black 25%, transparent 100%)',
+            WebkitMaskImage: 'linear-gradient(to top, black 25%, transparent 100%)',
             opacity: 0.55
           }}
           animate={{
@@ -343,8 +432,11 @@ export const CelestialCloudSky: React.FC<CelestialCloudSkyProps> = ({ className 
         </motion.div>
       </div>
 
-      {/* 9. Soft Transition Gradient into the section below */}
-      <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#020512] via-[#020512]/60 to-transparent pointer-events-none" />
+      {/* ========================================================================= */}
+      {/* 4. SECTION BOTTOM TRANSITION VIGNETTE (z-[35])                            */}
+      {/*    Melts smoothly into the deep navy royal wedding invitation section      */}
+      {/* ========================================================================= */}
+      <div className="absolute inset-x-0 bottom-0 h-32 sm:h-44 bg-gradient-to-t from-[#020512] via-[#020512]/65 to-transparent pointer-events-none z-[35]" />
     </div>
   );
 };

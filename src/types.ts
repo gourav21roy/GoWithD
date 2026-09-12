@@ -1,4 +1,5 @@
 export type Language = 'en' | 'bn' | 'hi';
+export type GuestSide = 'all' | 'bride' | 'groom';
 
 export interface EventDetail {
   id: 'wedding' | 'reception';

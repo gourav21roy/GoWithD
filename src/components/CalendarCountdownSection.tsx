@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Calendar as CalendarIcon, Clock, Download, ExternalLink, Sparkles, Check } from 'lucide-react';
-import { Language } from '../types';
+import { Language, GuestSide } from '../types';
 import { translations } from '../data/translations';
 
 interface CalendarCountdownSectionProps {
   language: Language;
   onSelectEventDate?: (eventId: 'wedding' | 'reception') => void;
+  guestSide: GuestSide;
 }
 
 export const CalendarCountdownSection: React.FC<CalendarCountdownSectionProps> = ({
   language,
-  onSelectEventDate
+  onSelectEventDate,
+  guestSide
 }) => {
   const t = translations[language] || translations.en;
 
@@ -25,8 +27,11 @@ export const CalendarCountdownSection: React.FC<CalendarCountdownSectionProps> =
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    // Nov 21, 2026 18:30:00 IST
-    const targetDate = new Date('2026-11-21T18:30:00+05:30').getTime();
+    // Nov 23, 2026 19:00:00 IST for groom side; Nov 21, 2026 18:30:00 IST for bride or all
+    const targetIso = guestSide === 'groom'
+      ? '2026-11-23T19:00:00+05:30'
+      : '2026-11-21T18:30:00+05:30';
+    const targetDate = new Date(targetIso).getTime();
 
     const calculateTime = () => {
       const now = new Date().getTime();
@@ -48,7 +53,7 @@ export const CalendarCountdownSection: React.FC<CalendarCountdownSectionProps> =
     calculateTime();
     const interval = setInterval(calculateTime, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [guestSide]);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -184,50 +189,62 @@ END:VEVENT\r
               </div>
             ))}
 
-            {/* Highlighted Wedding Day 21st */}
-            <button
-              onClick={() => {
-                if (onSelectEventDate) onSelectEventDate('wedding');
-                const el = document.getElementById('events-section');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }}
-              title="Click to view Subho Bibaho Ceremony details"
-              className="w-full aspect-square flex flex-col items-center justify-center p-0.5 rounded-lg sm:rounded-xl bg-gradient-to-br from-[#F7D070] via-[#D4AF37] to-[#AA820A] text-[#1A0206] font-bold shadow-lg ring-1 sm:ring-2 ring-[#FFF8E7] relative group cursor-pointer transform hover:scale-105 active:scale-95 transition-all text-center"
-            >
-              <span className="text-xs sm:text-base font-bold leading-none">21</span>
-              <span className="text-[7px] sm:text-[9px] uppercase font-extrabold tracking-tighter leading-none mt-0.5 sm:mt-1">
-                Wedding
-              </span>
-              <span className="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5 sm:h-3 sm:w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FFF8E7] opacity-75" />
-                <span className="relative inline-flex rounded-full h-full w-full bg-amber-200 border border-[#D4AF37]" />
-              </span>
-            </button>
+            {/* Day 21 (Wedding Day if bride or all) */}
+            {guestSide === 'groom' ? (
+              <div className="w-full aspect-square flex items-center justify-center rounded-lg sm:rounded-xl text-amber-100/40 text-xs sm:text-sm">
+                21
+              </div>
+            ) : (
+              <button
+                onClick={() => {
+                  if (onSelectEventDate) onSelectEventDate('wedding');
+                  const el = document.getElementById('events-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                title="Click to view Subho Bibaho Ceremony details"
+                className="w-full aspect-square flex flex-col items-center justify-center p-0.5 rounded-lg sm:rounded-xl relative group cursor-pointer transform hover:scale-105 active:scale-95 transition-all text-center bg-gradient-to-br from-[#F7D070] via-[#D4AF37] to-[#AA820A] text-[#1A0206] font-bold shadow-lg ring-1 sm:ring-2 ring-[#FFF8E7]"
+              >
+                <span className="text-xs sm:text-base font-bold leading-none">21</span>
+                <span className="text-[7px] sm:text-[9px] uppercase font-extrabold tracking-tighter leading-none mt-0.5 sm:mt-1">
+                  Wedding
+                </span>
+                <span className="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5 sm:h-3 sm:w-3">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FFF8E7] opacity-75" />
+                  <span className="relative inline-flex rounded-full h-full w-full bg-amber-200 border border-[#D4AF37]" />
+                </span>
+              </button>
+            )}
 
             {/* Day 22 */}
             <div className="w-full aspect-square flex items-center justify-center rounded-lg sm:rounded-xl text-amber-100/40 text-xs sm:text-sm">
               22
             </div>
 
-            {/* Highlighted Reception Day 23rd */}
-            <button
-              onClick={() => {
-                if (onSelectEventDate) onSelectEventDate('reception');
-                const el = document.getElementById('events-section');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              }}
-              title="Click to view Preeti Bhoj Reception details"
-              className="w-full aspect-square flex flex-col items-center justify-center p-0.5 rounded-lg sm:rounded-xl bg-gradient-to-br from-rose-600 via-rose-700 to-[#4A0E17] text-[#FFF8E7] font-bold shadow-lg ring-1 sm:ring-2 ring-[#F7D070] relative group cursor-pointer transform hover:scale-105 active:scale-95 transition-all text-center"
-            >
-              <span className="text-xs sm:text-base font-bold leading-none">23</span>
-              <span className="text-[7px] sm:text-[9px] uppercase font-extrabold tracking-tighter leading-none mt-0.5 sm:mt-1 text-[#FCE2A6]">
-                Dinner
-              </span>
-              <span className="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5 sm:h-3 sm:w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-full w-full bg-rose-300 border border-[#FCE2A6]" />
-              </span>
-            </button>
+            {/* Day 23 (Reception Day if groom or all) */}
+            {guestSide === 'bride' ? (
+              <div className="w-full aspect-square flex items-center justify-center rounded-lg sm:rounded-xl text-amber-100/40 text-xs sm:text-sm">
+                23
+              </div>
+            ) : (
+              <button
+                onClick={() => {
+                  if (onSelectEventDate) onSelectEventDate('reception');
+                  const el = document.getElementById('events-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                title="Click to view Preeti Bhoj Reception details"
+                className="w-full aspect-square flex flex-col items-center justify-center p-0.5 rounded-lg sm:rounded-xl relative group cursor-pointer transform hover:scale-105 active:scale-95 transition-all text-center bg-gradient-to-br from-rose-600 via-rose-700 to-[#4A0E17] text-[#FFF8E7] font-bold shadow-lg ring-1 sm:ring-2 ring-[#F7D070]"
+              >
+                <span className="text-xs sm:text-base font-bold leading-none">23</span>
+                <span className="text-[7px] sm:text-[9px] uppercase font-extrabold tracking-tighter leading-none mt-0.5 sm:mt-1 text-[#FCE2A6]">
+                  Dinner
+                </span>
+                <span className="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5 sm:h-3 sm:w-3">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-full w-full bg-rose-300 border border-[#FCE2A6]" />
+                </span>
+              </button>
+            )}
 
             {/* Days 24 to 30 */}
             {[24, 25, 26, 27, 28, 29, 30].map((d) => (
@@ -253,32 +270,36 @@ END:VEVENT\r
           {/* Interactive Legend & Add to Calendar Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 mt-5 sm:mt-6 pt-4 sm:pt-5 border-t border-[#D4AF37]/25 text-xs font-semibold">
             <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 sm:gap-4">
-              <div className="flex items-center space-x-1.5">
-                <span className="w-3 h-3 rounded-full bg-[#D4AF37] inline-block shadow shrink-0" />
-                <span className="text-[#FCE2A6]">{t['legend-wedding']}</span>
-              </div>
-              <div className="flex items-center space-x-1.5">
-                <span className="w-3 h-3 rounded-full bg-rose-600 inline-block shadow shrink-0" />
-                <span className="text-[#FCE2A6]">{t['legend-reception']}</span>
-              </div>
+              {guestSide !== 'groom' && (
+                <div className="flex items-center space-x-1.5">
+                  <span className="w-3 h-3 rounded-full bg-[#D4AF37] inline-block shadow shrink-0" />
+                  <span className="text-[#FCE2A6]">{t['legend-wedding']}</span>
+                </div>
+              )}
+              {guestSide !== 'bride' && (
+                <div className="flex items-center space-x-1.5">
+                  <span className="w-3 h-3 rounded-full bg-rose-600 inline-block shadow shrink-0" />
+                  <span className="text-[#FCE2A6]">{t['legend-reception']}</span>
+                </div>
+              )}
             </div>
 
             {/* Quick Add To Calendar Buttons */}
             <div className="flex items-center justify-center space-x-2 w-full sm:w-auto">
               <a
-                href={getGoogleCalendarUrl('wedding')}
+                href={getGoogleCalendarUrl(guestSide === 'groom' ? 'reception' : 'wedding')}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex-1 sm:flex-initial px-3 py-1.5 rounded-full bg-[#D4AF37]/20 hover:bg-[#D4AF37]/30 border border-[#D4AF37]/50 text-[#FCE2A6] flex items-center justify-center space-x-1 transition-all text-xs"
-                title="Add Wedding to Google Calendar"
+                title="Add to Google Calendar"
               >
                 <ExternalLink className="w-3 h-3" />
                 <span>Google</span>
               </a>
 
               <button
-                onClick={() => downloadIcs('both')}
-                className="flex-1 sm:flex-initial px-3 py-1.5 rounded-full bg-[#D4AF37]/20 hover:bg-[#D4AF37]/30 border border-[#D4AF37]/50 text-[#FCE2A6] flex items-center justify-center space-x-1 transition-all text-xs"
+                onClick={() => downloadIcs(guestSide === 'groom' ? 'reception' : guestSide === 'bride' ? 'wedding' : 'both')}
+                className="flex-1 sm:flex-initial px-3 py-1.5 rounded-full bg-[#D4AF37]/20 hover:bg-[#D4AF37]/30 border border-[#D4AF37]/50 text-[#FCE2A6] flex items-center justify-center space-x-1 transition-all text-xs cursor-pointer"
                 title="Download .ics for Apple / Outlook"
               >
                 <Download className="w-3 h-3" />
@@ -292,7 +313,13 @@ END:VEVENT\r
         <div className="text-center space-y-4">
           <div className="inline-flex items-center space-x-2 text-sm font-serif text-[#FCE2A6]">
             <Clock className="w-4 h-4 text-[#F7D070]" />
-            <span className="font-semibold tracking-wide">{t['countdown-title']}</span>
+            <span className="font-semibold tracking-wide">
+              {guestSide === 'bride'
+                ? (language === 'bn' ? 'শুভ বিবাহ অনুষ্ঠানের ক্ষণ গণনা' : language === 'hi' ? 'शुभ विवाह संस्कार की उलटी गिनती' : 'Countdown to Subho Bibaho Wedding')
+                : guestSide === 'groom'
+                ? (language === 'bn' ? 'শুভ প্রীতিভোজের ক্ষণ গণনা' : language === 'hi' ? 'शुभ प्रीतिभোজ की उलटी गिनती' : 'Countdown to Preeti Bhoj Reception')
+                : t['countdown-title']}
+            </span>
           </div>
 
           <div className="grid grid-cols-4 gap-2 sm:gap-4 max-w-lg mx-auto">

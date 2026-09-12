@@ -1,6 +1,6 @@
 import React from 'react';
 import { Calendar, ChevronDown, Sparkles, MapPin, Heart } from 'lucide-react';
-import { Language } from '../types';
+import { Language, GuestSide } from '../types';
 import { translations } from '../data/translations';
 import { RoyalWeddingCurtain } from './RoyalWeddingCurtain';
 import { GaneshGraphic } from './GaneshGraphic';
@@ -10,10 +10,29 @@ import { CelestialCloudSky } from './CelestialCloudSky';
 interface HeroSectionProps {
   language: Language;
   onOpenCalendar: () => void;
+  guestSide: GuestSide;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ language, onOpenCalendar }) => {
+export const HeroSection: React.FC<HeroSectionProps> = ({
+  language,
+  onOpenCalendar,
+  guestSide
+}) => {
   const t = translations[language] || translations.en;
+
+  const heroDateText =
+    guestSide === 'bride'
+      ? t['hero-date-bride'] || 'Saturday 21st November 2026 • Subho Bibaho • Kolkata'
+      : guestSide === 'groom'
+      ? t['hero-date-groom'] || 'Monday 23rd November 2026 • Preeti Bhoj Reception • Kolkata'
+      : t['hero-date-header'] || 'Saturday 21st & Monday 23rd November 2026 • Kolkata';
+
+  const heroSubtext =
+    guestSide === 'bride'
+      ? t['hero-subtext-bride'] || t['hero-subtext']
+      : guestSide === 'groom'
+      ? t['hero-subtext-groom'] || t['hero-subtext']
+      : t['hero-subtext'];
 
   return (
     <div className="relative w-full overflow-hidden">
@@ -24,23 +43,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ language, onOpenCalend
              (Pure moving clouds, starry sky, and floating lanterns revealed when curtains open) */}
       <section
         id="celestial-sky-filler"
-        className="relative min-h-[105vh] sm:min-h-screen w-full flex flex-col justify-center items-center overflow-hidden select-none pointer-events-none"
+        className="relative min-h-[130vh] sm:min-h-[115vh] w-full flex flex-col justify-center items-center overflow-hidden select-none pointer-events-none"
       >
-        {/* Animated Moving Clouds, Twinkling Stars, Moon & Constellations */}
-        <CelestialCloudSky />
-
-        {/* Slowly drifting golden lanterns */}
-        <FloatingLanterns />
-
-        {/* Subtle gradient blend transitioning smoothly into the Hero section */}
-        <div className="absolute inset-x-0 bottom-0 h-24 sm:h-32 bg-gradient-to-b from-transparent via-[#020512]/60 to-[#020512] pointer-events-none" />
+        {/* Animated Moving Clouds, Twinkling Stars, Moon, Constellations with integrated Floating Lanterns */}
+        <CelestialCloudSky>
+          <FloatingLanterns />
+        </CelestialCloudSky>
       </section>
 
       {/* 2. HERO SECTION: Royal Wedding Invitation Card
              (Revealed when user scrolls past the celestial sky) */}
       <section
         id="hero-section"
-        className="relative z-20 min-h-0 sm:min-h-screen w-full flex flex-col justify-center items-center px-3 sm:px-4 pt-8 sm:pt-40 pb-12 sm:pb-24 -mt-12 sm:mt-0 overflow-hidden bg-gradient-to-b from-[#020512] via-[#0D1934] to-[#0A1630]"
+        className="relative z-20 min-h-screen w-full flex flex-col justify-center items-center px-3 sm:px-4 pt-16 sm:pt-28 pb-16 sm:pb-24 overflow-hidden bg-gradient-to-b from-[#020512] via-[#0D1934] to-[#0A1630]"
       >
         {/* Floating Lanterns Background Effect slowly drifting upwards */}
         <FloatingLanterns />
@@ -66,7 +81,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ language, onOpenCalend
         </div>
 
         {/* Scroll anchor target for smooth navigation */}
-        <div id="hero-invitation-container" className="w-full max-w-4xl mx-auto flex flex-col items-center mt-2 mb-auto sm:my-auto transition-all duration-700 ease-out">
+        <div id="hero-invitation-container" className="w-full max-w-4xl mx-auto flex flex-col items-center my-auto transition-all duration-700 ease-out">
           {/* Main Invitation Card Content */}
           <div className="relative z-30 max-w-2xl w-full mx-auto text-center px-2">
             <div className="glass-card-maroon rounded-3xl p-5 sm:p-9 border-2 border-[#D4AF37]/65 shadow-[0_25px_60px_rgba(0,0,0,0.85)] space-y-5 sm:space-y-6 transform transition-all duration-300">
@@ -110,14 +125,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ language, onOpenCalend
                 <div className="inline-flex items-center justify-center space-x-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-[#D4AF37]/20 via-[#D4AF37]/30 to-[#D4AF37]/20 border border-[#D4AF37]/60 shadow-[0_4px_15px_rgba(212,175,55,0.15)] text-[#FCE2A6] text-center max-w-full">
                   <Calendar className="w-3.5 h-3.5 text-[#F7D070] shrink-0" />
                   <span className="text-[11px] sm:text-sm font-serif font-semibold tracking-wider">
-                    {t['hero-date-header'] || 'Saturday 21st & Monday 23rd November 2026 • Kolkata'}
+                    {heroDateText}
                   </span>
                 </div>
               </div>
 
               {/* Invitation Intro Sentence */}
               <p className="text-xs sm:text-sm text-[#FFF8E7]/85 font-light tracking-widest max-w-lg mx-auto leading-relaxed">
-                {t['hero-subtext']}
+                {heroSubtext}
               </p>
 
               {/* COUPLE NAMES */}

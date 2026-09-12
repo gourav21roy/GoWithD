@@ -1,5 +1,5 @@
 import React from 'react';
-import { Share2, Calendar, MapPin, Heart } from 'lucide-react';
+import { Calendar, MapPin, Heart } from 'lucide-react';
 import { Language } from '../types';
 import { translations } from '../data/translations';
 import { AudioEngine } from './AudioEngine';
@@ -7,13 +7,11 @@ import { AudioEngine } from './AudioEngine';
 interface HeaderNavProps {
   language: Language;
   onLanguageChange: (lang: Language) => void;
-  onOpenShare: () => void;
 }
 
 export const HeaderNav: React.FC<HeaderNavProps> = ({
   language,
-  onLanguageChange,
-  onOpenShare
+  onLanguageChange
 }) => {
   const t = translations[language] || translations.en;
 
@@ -23,16 +21,6 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
       <header className="fixed top-0 left-0 right-0 z-50 p-2.5 sm:p-4 flex justify-between items-center pointer-events-none flex-nowrap">
         <div className="flex items-center space-x-1.5 sm:space-x-2 pointer-events-auto shrink-0 flex-nowrap">
           <AudioEngine language={language} />
-
-          <button
-            id="share-invite-btn"
-            onClick={onOpenShare}
-            className="shrink-0 h-8 sm:h-9 flex items-center space-x-1.5 px-2.5 sm:px-3 rounded-full glass-card-maroon border border-[#D4AF37]/50 hover:border-[#D4AF37] text-[#FCE2A6] hover:text-white transition-all shadow-lg text-xs sm:text-sm font-semibold tracking-wide whitespace-nowrap"
-            title={t['share-invite']}
-          >
-            <Share2 className="w-3.5 h-3.5 text-[#F7D070] shrink-0" />
-            <span className="hidden md:inline">{t['share-invite']}</span>
-          </button>
         </div>
 
         {/* Trilingual Language Selector */}

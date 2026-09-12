@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Calendar, Clock, MapPin, Copy, Check, ExternalLink, Sparkles, PartyPopper } from 'lucide-react';
-import { Language } from '../types';
+import { Language, GuestSide } from '../types';
 import { translations } from '../data/translations';
 import { weddingEvents } from '../data/weddingData';
 import { HowrahBridgeParallax } from './HowrahBridgeParallax';
@@ -8,9 +8,14 @@ import { HowrahBridgeParallax } from './HowrahBridgeParallax';
 interface EventsSectionProps {
   language: Language;
   selectedEventId?: 'wedding' | 'reception' | null;
+  guestSide: GuestSide;
 }
 
-export const EventsSection: React.FC<EventsSectionProps> = ({ language, selectedEventId }) => {
+export const EventsSection: React.FC<EventsSectionProps> = ({
+  language,
+  selectedEventId,
+  guestSide
+}) => {
   const t = translations[language] || translations.en;
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
@@ -20,6 +25,12 @@ export const EventsSection: React.FC<EventsSectionProps> = ({ language, selected
       setTimeout(() => setCopiedId(null), 3000);
     });
   };
+
+  const filteredEvents = weddingEvents.filter(event => {
+    if (guestSide === 'bride') return event.id === 'wedding';
+    if (guestSide === 'groom') return event.id === 'reception';
+    return true;
+  });
 
   return (
     <section
@@ -44,9 +55,9 @@ export const EventsSection: React.FC<EventsSectionProps> = ({ language, selected
         {/* Seamless Animated Howrah Bridge Parallax Panorama */}
         <HowrahBridgeParallax language={language} />
 
-        {/* 2 Main Event Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {weddingEvents.map(event => {
+        {/* Event Cards Container */}
+        <div className={guestSide === 'all' ? "grid grid-cols-1 md:grid-cols-2 gap-8" : "max-w-xl mx-auto w-full"}>
+          {filteredEvents.map(event => {
             const isWedding = event.id === 'wedding';
             const isSelected = selectedEventId === event.id;
 

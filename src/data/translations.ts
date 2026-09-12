@@ -159,7 +159,30 @@ export const translations: Record<Language, Record<string, string>> = {
     "copy-link-btn": "Copy Invitation Link",
     "link-copied": "Link copied to clipboard!",
     "whatsapp-btn": "Share on WhatsApp",
-    "qr-label": "Scan QR code to open on mobile"
+    "qr-label": "Scan QR code to open on mobile",
+
+    // Guest Side & Filtering
+    "side-all": "Both Events",
+    "side-bride": "Bride's Side",
+    "side-groom": "Groom's Side",
+    "side-selector-label": "Guest View",
+    "side-indicator-all": "Wedding & Reception Invitations",
+    "side-indicator-bride": "Bride's Side Invitation • Wedding Ceremony",
+    "side-indicator-groom": "Groom's Side Invitation • Reception Dinner",
+    "hero-date-bride": "Saturday 21st November 2026 • Subho Bibaho • Kolkata",
+    "hero-date-groom": "Monday 23rd November 2026 • Preeti Bhoj Reception • Kolkata",
+    "hero-subtext-bride": "Together with the Sarkar & Roy families, cordially invite you to celebrate the sacred wedding ceremony of",
+    "hero-subtext-groom": "Together with the Roy & Sarkar families, cordially invite you to celebrate the grand wedding reception dinner of",
+    "share-tab-both": "Both Events",
+    "share-tab-bride": "Bride's Side (Wedding)",
+    "share-tab-groom": "Groom's Side (Reception)",
+    "share-msg-bride": "🌸 You are cordially invited from the Bride's side (Debanjana Sarkar & family) to the auspicious Wedding Ceremony (Subho Bibaho) on Saturday, 21st November 2026 at Navnir Farms and Banquets, Kolkata!\n\nView Invitation & Directions:\n",
+    "share-msg-groom": "🌸 You are cordially invited from the Groom's side (Gourav Roy & family) to the grand Reception Celebration (Preeti Bhoj) on Monday, 23rd November 2026 at DTC Southern Heights, Kolkata!\n\nView Invitation & Directions:\n",
+    "share-msg-both": "🌸 You are cordially invited to celebrate the Wedding & Reception of Gourav Roy & Debanjana Sarkar (#GouravKiDebu) in Kolkata on Nov 21 & 23, 2026!\n\nView Invitation & Details here:\n",
+    "filter-all": "All Events (2)",
+    "filter-bride": "Bride's Side: Wedding",
+    "filter-groom": "Groom's Side: Reception",
+    "switch-filter-note": "Showing specific event details. Tap 'Both Events' above to explore the entire celebration."
   },
 
   bn: {
@@ -320,7 +343,30 @@ export const translations: Record<Language, Record<string, string>> = {
     "copy-link-btn": "লিংক কপি করুন",
     "link-copied": "লিংক ক্লিপবোর্ডে কপি করা হয়েছে!",
     "whatsapp-btn": "হোয়াটসঅ্যাপে পাঠান",
-    "qr-label": "মোবাইলে দেখার জন্য কিউআর স্ক্যান করুন"
+    "qr-label": "মোবাইলে দেখার জন্য কিউআর স্ক্যান করুন",
+
+    // Guest Side & Filtering
+    "side-all": "উভয় অনুষ্ঠান",
+    "side-bride": "কনের পক্ষ",
+    "side-groom": "বরের পক্ষ",
+    "side-selector-label": "অতিথি পক্ষ",
+    "side-indicator-all": "শুভ বিবাহ ও প্রীতিভোজ উভয় নিমন্ত্রণ",
+    "side-indicator-bride": "কনের পক্ষের আমন্ত্রণ • শুভ বিবাহ অনুষ্ঠান",
+    "side-indicator-groom": "বরের পক্ষের আমন্ত্রণ • শুভ প্রীতিভোজ",
+    "hero-date-bride": "শনিবার ২১শে নভেম্বর ২০২৬ • শুভ বিবাহ • কলকাতা",
+    "hero-date-groom": "সোমবার ২৩শে নভেম্বর ২০২৬ • শুভ প্রীতিভোজ • কলকাতা",
+    "hero-subtext-bride": "সরকার ও রায় পরিবারের পক্ষ থেকে আপনাকে সাদর আমন্ত্রণ জানাচ্ছি শুভ বিবাহের পবিত্র লগ্নে",
+    "hero-subtext-groom": "রায় ও সরকার পরিবারের পক্ষ থেকে আপনাকে সাদর আমন্ত্রণ জানাচ্ছি শুভ প্রীতিভোজের প্রীতিসম্মেলনে",
+    "share-tab-both": "উভয় অনুষ্ঠান",
+    "share-tab-bride": "কনের পক্ষ (বিবাহ)",
+    "share-tab-groom": "বরের পক্ষ (প্রীতিভোজ)",
+    "share-msg-bride": "🌸 কনের পক্ষের (দেবাঞ্জনা সরকার ও পরিবার) পক্ষ থেকে আপনাকে শনিবার ২১শে নভেম্বর ২০২৬ কলকাতার নবনীড় ফার্মস অ্যান্ড ব্যাঙ্কুয়েটসে শুভ বিবাহ অনুষ্ঠানে সপরিবারে সাদর আমন্ত্রণ!\n\nআমন্ত্রণপত্র ও স্থান দেখুন:\n",
+    "share-msg-groom": "🌸 বরের পক্ষের (গৌরব রায় ও পরিবার) পক্ষ থেকে আপনাকে সোমবার ২৩শে নভেম্বর ২০২৬ কলকাতার ডিটিসি সাউদার্ন হাইটসে শুভ প্রীতিভোজ অনুষ্ঠানে সপরিবারে সাদর আমন্ত্রণ!\n\nআমন্ত্রণপত্র ও স্থান দেখুন:\n",
+    "share-msg-both": "🌸 গৌরব রায় ও দেবাঞ্জনা সরকারের (#GouravKiDebu) শুভ বিবাহ (২১ নভে) ও প্রীতিভোজ (২৩ নভে) অনুষ্ঠানে সপরিবারে সাদর আমন্ত্রণ!\n\nআমন্ত্রণপত্র দেখুন:\n",
+    "filter-all": "সমস্ত অনুষ্ঠান (২)",
+    "filter-bride": "কনের পক্ষ: শুভ বিবাহ",
+    "filter-groom": "বরের পক্ষ: প্রীতিভোজ",
+    "switch-filter-note": "নির্দিষ্ট অনুষ্ঠান প্রদর্শিত হচ্ছে। পুরো উৎসবের বিবরণ দেখতে উপরে 'উভয় অনুষ্ঠান' বেছে নিন।"
   },
 
   hi: {
@@ -481,6 +527,29 @@ export const translations: Record<Language, Record<string, string>> = {
     "copy-link-btn": "लिंक कॉपी करें",
     "link-copied": "लिंक कॉपी हो गया!",
     "whatsapp-btn": "व्हाट्सएप पर भेजें",
-    "qr-label": "मोबाइल पर देखने के लिए क्यूआर स्कैन करें"
+    "qr-label": "मोबाइल पर देखने के लिए क्यूआर स्कैन करें",
+
+    // Guest Side & Filtering
+    "side-all": "दोनों समारोह",
+    "side-bride": "दुल्हन पक्ष",
+    "side-groom": "वर पक्ष",
+    "side-selector-label": "अतिथि पक्ष",
+    "side-indicator-all": "विवाह एवं प्रीतिभोज दोनों निमंत्रण",
+    "side-indicator-bride": "दुल्हन पक्ष का निमंत्रण • शुभ विवाह संस्कार",
+    "side-indicator-groom": "वर पक्ष का निमंत्रण • प्रीतिभोज समारोह",
+    "hero-date-bride": "शनिवार २१ नवम्बर २०२६ • शुभ विवाह • कोलकाता",
+    "hero-date-groom": "सोमवार २३ नवम्बर २०२६ • प्रीतिभोज • कोलकाता",
+    "hero-subtext-bride": "सरकार एवं राय परिवार की ओर से हमारे शुभ विवाह के पावन अवसर पर सादर आमंत्रित हैं",
+    "hero-subtext-groom": "राय एवं सरकार परिवार की ओर से हमारे शुभ प्रीतिभोज के भव्य अवसर पर सादर आमंत्रित हैं",
+    "share-tab-both": "दोनों समारोह",
+    "share-tab-bride": "दुल्हन पक्ष (विवाह)",
+    "share-tab-groom": "वर पक्ष (प्रीतिभोज)",
+    "share-msg-bride": "🌸 दुल्हन पक्ष (देबांजना सरकार एवं परिवार) की ओर से शनिवार, २१ नवम्बर २०२६ को नबनीड़ फार्म्स एवं बैंक्वेट्स, कोलकाता में आयोजित शुभ विवाह संस्कार में सपरिवार सादर आमंत्रित हैं!\n\nनिमंत्रण पत्र व मार्ग देखें:\n",
+    "share-msg-groom": "🌸 वर पक्ष (गौरव राय एवं परिवार) की ओर से सोमवार, २३ नवम्बर २०२६ को डीटीसी सदर्न हाइट्स, कोलकाता में आयोजित भव्य प्रीतिभोज में सपरिवार सादर आमंत्रित हैं!\n\nनिमंत्रण पत्र व मार्ग देखें:\n",
+    "share-msg-both": "🌸 गौरव राय एवं देबांजना सरकार (#GouravKiDebu) के शुभ विवाह (२१ नवं) व प्रीतिभोज (२३ नवं) के पावन अवसर पर सपरिवार सादर आमंत्रित हैं!\n\nनिमंत्रण पत्र देखें:\n",
+    "filter-all": "सभी कार्यक्रम (२)",
+    "filter-bride": "दुल्हन पक्ष: शुभ विवाह",
+    "filter-groom": "वर पक्ष: प्रीतिभोज",
+    "switch-filter-note": "विशिष्ट कार्यक्रम प्रदर्शित है। पूरे उत्सव का विवरण देखने के लिए ऊपर 'दोनों समारोह' चुनें।"
   }
 };
