@@ -34,10 +34,18 @@ export const EventsSection: React.FC<EventsSectionProps> = ({
 
   return (
     <section
-      id="events-section"
-      className="relative py-24 px-4 bg-gradient-to-b from-[#1A0206] via-[#0B1B3D] to-[#1A0206] text-[#FFF8E7] overflow-hidden"
+      className="relative py-14 sm:py-20 px-4 bg-gradient-to-b from-[#1A0206] via-[#0B1B3D] to-[#1A0206] text-[#FFF8E7] overflow-hidden"
     >
-      <div className="relative z-10 max-w-5xl mx-auto space-y-12">
+      {/* 1. Lively Scenic Transition Filler: Howrah Bridge Parallax */}
+      <div className="relative z-10 max-w-5xl mx-auto mb-14 sm:mb-20">
+        <HowrahBridgeParallax language={language} />
+      </div>
+
+      {/* 2. Auspicious Events & Venues Info Region (Scroll Anchor Target) */}
+      <div
+        id="events-section"
+        className="relative z-10 max-w-5xl mx-auto space-y-12 scroll-mt-20 sm:scroll-mt-24"
+      >
         {/* Section Header */}
         <div className="text-center space-y-3">
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/40 text-[#FCE2A6] text-xs font-semibold uppercase tracking-wider">
@@ -51,9 +59,6 @@ export const EventsSection: React.FC<EventsSectionProps> = ({
             {t['events-subheading']}
           </p>
         </div>
-
-        {/* Seamless Animated Howrah Bridge Parallax Panorama */}
-        <HowrahBridgeParallax language={language} />
 
         {/* Event Cards Container */}
         <div className={guestSide === 'all' ? "grid grid-cols-1 md:grid-cols-2 gap-8" : "max-w-xl mx-auto w-full"}>
@@ -79,10 +84,6 @@ export const EventsSection: React.FC<EventsSectionProps> = ({
                     <span className="px-3 py-1 rounded-full bg-[#D4AF37]/20 text-[#FCE2A6] text-xs font-bold uppercase tracking-wider border border-[#D4AF37]/40 flex items-center space-x-1.5">
                       {isWedding ? <Sparkles className="w-3 h-3 text-[#F7D070]" /> : <PartyPopper className="w-3 h-3 text-[#F7D070]" />}
                       <span>{t[event.badgeKey]}</span>
-                    </span>
-
-                    <span className="text-xs font-serif text-[#F7D070]/90 font-semibold tracking-wider">
-                      {isWedding ? 'Subho Bibaho' : 'Preeti Bhoj'}
                     </span>
                   </div>
 

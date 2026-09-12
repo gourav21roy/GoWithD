@@ -3,11 +3,10 @@ import { Language, GuestSide } from './types';
 import { PetalsCanvas } from './components/PetalsCanvas';
 import { HeaderNav } from './components/HeaderNav';
 import { HeroSection } from './components/HeroSection';
-import { KaliTempleSection } from './components/KaliTempleSection';
+import { KolkataTramSection } from './components/KolkataTramSection';
 import { CalendarCountdownSection } from './components/CalendarCountdownSection';
 import { EventsSection } from './components/EventsSection';
 import { VictoriaMemorialSection } from './components/VictoriaMemorialSection';
-import { BlessingsGuestbook } from './components/BlessingsGuestbook';
 import { Footer } from './components/Footer';
 
 export default function App() {
@@ -76,8 +75,8 @@ export default function App() {
           guestSide={guestSide}
         />
 
-        {/* Dakshineswar Kali Temple & Hooghly River Heritage Section */}
-        <KaliTempleSection
+        {/* Vintage Calcutta Tramways Heritage Section (Replacing Temple Section) */}
+        <KolkataTramSection
           language={language}
         />
 
@@ -95,19 +94,14 @@ export default function App() {
           guestSide={guestSide}
         />
 
-        {/* Victoria Memorial Parallax Illustration */}
+        {/* Victoria Memorial Parallax Illustration (Scenic Transition before Footer) */}
         <VictoriaMemorialSection
-          language={language}
-        />
-
-        {/* Blessings & Interactive Guestbook Wall */}
-        <BlessingsGuestbook
           language={language}
         />
       </main>
 
       {/* Footer */}
-      <Footer language={language} />
+      <Footer language={language} guestSide={guestSide} />
     </div>
   );
 }

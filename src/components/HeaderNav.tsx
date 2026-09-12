@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'motion/react';
 import { Calendar, MapPin, Heart } from 'lucide-react';
 import { Language } from '../types';
 import { translations } from '../data/translations';
@@ -14,6 +15,30 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
   onLanguageChange
 }) => {
   const t = translations[language] || translations.en;
+  const [isNavVisible, setIsNavVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY || window.pageYOffset;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      // Only show navigation dock when user visits near the end of the page (within 550px or >= 82% scrolled)
+      const distanceFromBottom = documentHeight - (scrollY + windowHeight);
+      const isNearEnd = distanceFromBottom <= 550 || (documentHeight > windowHeight && (scrollY / (documentHeight - windowHeight)) >= 0.82);
+
+      setIsNavVisible(isNearEnd);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, []);
 
   return (
     <>
@@ -61,10 +86,18 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
         </div>
       </header>
 
-      {/* Floating Bottom Navigation Dock */}
-      <nav
+      {/* Floating Bottom Navigation Dock - Only visible when visiting end of the page */}
+      <motion.nav
         aria-label="Main Navigation"
-        className="fixed bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2 z-40 bg-[#1A0206]/92 border border-[#D4AF37]/55 rounded-full px-3 sm:px-5 py-2 backdrop-blur-xl shadow-[0_10px_35px_rgba(0,0,0,0.85)] flex items-center space-x-2 sm:space-x-4 text-[11px] sm:text-xs font-medium max-w-[95vw] overflow-x-auto scrollbar-none"
+        initial={false}
+        animate={{
+          opacity: isNavVisible ? 1 : 0,
+          y: isNavVisible ? 0 : 35,
+          scale: isNavVisible ? 1 : 0.92,
+        }}
+        transition={{ duration: 0.35, ease: 'easeOut' }}
+        style={{ pointerEvents: isNavVisible ? 'auto' : 'none' }}
+        className="fixed bottom-3 sm:bottom-5 left-1/2 -translate-x-1/2 z-40 bg-[#1A0206]/95 border border-[#D4AF37]/60 rounded-full px-3 sm:px-5 py-2 backdrop-blur-xl shadow-[0_10px_35px_rgba(0,0,0,0.85)] flex items-center space-x-2 sm:space-x-4 text-[11px] sm:text-xs font-medium max-w-[95vw] overflow-x-auto scrollbar-none"
       >
         <a
           href="#hero-section"
@@ -91,16 +124,7 @@ export const HeaderNav: React.FC<HeaderNavProps> = ({
           <MapPin className="w-3.5 h-3.5 text-[#F7D070]" />
           <span>{t['nav-events']}</span>
         </a>
-        <span className="text-[#856404] select-none">•</span>
-
-        <a
-          href="#blessings-section"
-          className="flex items-center space-x-1 text-[#FCE2A6] hover:text-white transition-colors whitespace-nowrap px-1.5 py-1 rounded-md hover:bg-[#D4AF37]/15"
-        >
-          <Heart className="w-3.5 h-3.5 text-rose-400" />
-          <span>{t['nav-blessings']}</span>
-        </a>
-      </nav>
+      </motion.nav>
     </>
   );
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { CelestialFirecrackers } from './CelestialFirecrackers';
 
 interface CelestialCloudSkyProps {
   className?: string;
@@ -317,7 +318,12 @@ export const CelestialCloudSky: React.FC<CelestialCloudSkyProps> = ({ className 
         </motion.div>
 
         {/* ----------------------------------------------------------------------- */}
-        {/* F. FLOATING LANTERNS SLOT (z-[20])                                      */}
+        {/* F. CELEBRATORY WEDDING FIRECRACKERS BURSTING IN THE CLOUDS (z-[18])    */}
+        {/* ----------------------------------------------------------------------- */}
+        <CelestialFirecrackers className="z-[18]" />
+
+        {/* ----------------------------------------------------------------------- */}
+        {/* G. FLOATING FANUSH / SKY LANTERNS SLOT (z-[20])                         */}
         {/*    Drifts upwards between the cirrus veil and mid-cumulus clouds        */}
         {/* ----------------------------------------------------------------------- */}
         {children && (

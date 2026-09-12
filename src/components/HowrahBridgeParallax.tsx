@@ -42,17 +42,6 @@ export const HowrahBridgeParallax: React.FC<HowrahBridgeParallaxProps> = () => {
         style={{ opacity: sceneOpacity, scale: sceneScale }}
         className="relative w-full max-w-5xl mx-auto px-2 sm:px-4"
       >
-        {/* Cultural Header Badge */}
-        <div className="text-center mb-2.5 sm:mb-3">
-          <div className="inline-flex items-center space-x-1.5 sm:space-x-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-[#1A0206]/90 backdrop-blur-md border border-[#D4AF37]/50 shadow-lg text-[#FCE2A6] text-[10px] sm:text-xs font-serif">
-            <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#F7D070] animate-pulse shrink-0" />
-            <span className="font-bold tracking-wider uppercase">
-              রবীন্দ্র সেতু • The Iconic Gateway to Kolkata
-            </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF9800] animate-ping shrink-0" />
-          </div>
-        </div>
-
         {/* Responsive Atmospheric Canvas Box: Comfortable height on all screen sizes */}
         <div className="relative w-full h-[220px] xs:h-[260px] sm:h-[310px] md:h-[360px] lg:h-[400px] rounded-2xl sm:rounded-3xl overflow-hidden bg-gradient-to-b from-[#071329] via-[#122244] to-[#1A0812] border border-[#D4AF37]/45 shadow-[0_12px_35px_rgba(0,0,0,0.85)]">
           
@@ -485,24 +474,18 @@ export const HowrahBridgeParallax: React.FC<HowrahBridgeParallaxProps> = () => {
           </motion.div>
 
           {/* ========================================================================= */}
-          {/* LAYER 5: FOREGROUND PRINSEP GHAT STEPS & AUSPICIOUS RITUAL CORNERS        */}
+          {/* LAYER 5: FOREGROUND PRINSEP GHAT AUSPICIOUS RITUAL CORNERS                */}
           {/* ========================================================================= */}
           <div className="absolute bottom-0 inset-x-0 h-8 sm:h-10 pointer-events-none flex items-end justify-between px-3 sm:px-6 z-10">
-            {/* Left Corner: Prinsep Ghat Lamp */}
+            {/* Left Corner: Traditional Lamp */}
             <div className="flex items-end space-x-1.5 sm:space-x-2">
               <div className="w-6 sm:w-7 h-4 sm:h-5 rounded-t-lg bg-gradient-to-t from-[#2C1005] to-[#5D2B0D] border border-[#D4AF37]/50 flex items-center justify-center shadow">
                 <span className="text-[8px] sm:text-[9px] text-[#F7D070]">🪔</span>
               </div>
-              <span className="text-[9px] sm:text-[10px] font-serif text-[#FCE2A6]/80 bg-[#1A0206]/75 px-1.5 sm:px-2 py-0.5 rounded backdrop-blur-sm border border-[#D4AF37]/30">
-                প্রিন্সেপ ঘাট • Prinsep Ghat
-              </span>
             </div>
 
             {/* Right Corner: Sacred Hooghly Lamp */}
             <div className="flex items-end space-x-1.5 sm:space-x-2">
-              <span className="text-[9px] sm:text-[10px] font-serif text-[#FCE2A6]/80 bg-[#1A0206]/75 px-1.5 sm:px-2 py-0.5 rounded backdrop-blur-sm border border-[#D4AF37]/30">
-                গঙ্গা বক্ষ • Hooghly River
-              </span>
               <div className="w-6 sm:w-7 h-4 sm:h-5 rounded-t-lg bg-gradient-to-t from-[#2C1005] to-[#5D2B0D] border border-[#D4AF37]/50 flex items-center justify-center shadow">
                 <span className="text-[8px] sm:text-[9px] text-[#F7D070]">🪔</span>
               </div>

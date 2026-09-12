@@ -28,17 +28,11 @@ export const VictoriaMemorialSection: React.FC<VictoriaMemorialSectionProps> = (
   // Horse carriage (Ghoda Gari) moving across the promenade path driven smoothly by scroll
   const carriageX = useTransform(scrollYProgress, [0, 1], [-160, 240]);
 
-  // Trilingual titles and captions
+  // Trilingual titles
   const badgeTitle = {
-    en: 'Victoria Memorial • The Crown of Kolkata',
-    bn: 'ভিক্টোরিয়া মেমোরিয়াল • তিলোত্তমার গর্ব',
-    hi: 'विक्टोरिया मेमोरियल • कोलकाता का गौरव'
-  }[language];
-
-  const subCaption = {
-    en: 'Timeless architectural grandeur celebrating love in the City of Joy',
-    bn: 'কলকাতার বুকে ঐতিহ্য, রাজকীয় আভিজাত্য ও চিরন্তন প্রেমের প্রতীক',
-    hi: 'सिटी ऑफ जॉय में प्रेम और विरासत का राजसी प्रतीक'
+    en: 'Victoria Memorial • Kolkata',
+    bn: 'ভিক্টোরিয়া মেমোরিয়াল • কলকাতা',
+    hi: 'विक्टोरिया मेमोरियल • कोलकाता'
   }[language];
 
   return (
@@ -57,16 +51,13 @@ export const VictoriaMemorialSection: React.FC<VictoriaMemorialSectionProps> = (
       >
         {/* Cultural Header Badge */}
         <div className="text-center mb-3 sm:mb-4">
-          <div className="inline-flex items-center space-x-1.5 sm:space-x-2 px-3.5 sm:px-5 py-1 sm:py-1.5 rounded-full bg-[#1A0206]/92 backdrop-blur-md border border-[#D4AF37]/55 shadow-xl text-[#FCE2A6] text-[11px] sm:text-xs font-serif">
+          <div className="inline-flex items-center space-x-1.5 sm:space-x-2 px-4 sm:px-6 py-1 sm:py-1.5 rounded-full bg-[#1A0206]/92 backdrop-blur-md border border-[#D4AF37]/55 shadow-xl text-[#FCE2A6] text-xs sm:text-sm font-serif">
             <Landmark className="w-3.5 h-3.5 text-[#F7D070] shrink-0" />
             <span className="font-bold tracking-wider">
               {badgeTitle}
             </span>
             <Sparkles className="w-3 h-3 text-[#F7D070] animate-pulse shrink-0" />
           </div>
-          <p className="text-[11px] sm:text-xs text-[#FFF8E7]/70 font-serif mt-1">
-            {subCaption}
-          </p>
         </div>
 
         {/* Responsive Atmospheric Canvas Box */}
@@ -97,6 +88,24 @@ export const VictoriaMemorialSection: React.FC<VictoriaMemorialSectionProps> = (
               </defs>
 
               <rect width="1000" height="480" fill="url(#vmSkyGrad)" />
+
+              {/* Luminous "VICTORIA" Inscription Across The Night Sky Behind The Memorial */}
+              <text
+                x="500"
+                y="115"
+                textAnchor="middle"
+                fontFamily="serif"
+                fontSize="56"
+                fontWeight="bold"
+                letterSpacing="18"
+                fill="#FFF8E7"
+                fillOpacity="0.32"
+                stroke="#D4AF37"
+                strokeWidth="1"
+                strokeOpacity="0.4"
+              >
+                VICTORIA
+              </text>
 
               {/* Twinkling Night Stars */}
               {[

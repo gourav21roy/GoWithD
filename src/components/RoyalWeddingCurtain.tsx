@@ -398,19 +398,32 @@ export const RoyalWeddingCurtain: React.FC<RoyalWeddingCurtainProps> = ({ langua
           {/* Subtle Outer Glowing Ring */}
           <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-[#D4AF37]/30 via-[#FCE2A6]/40 to-[#D4AF37]/30 blur-sm pointer-events-none" />
 
-          {/* Bengali Topor & Mukut Auspicious Wedding Emblem */}
-          <div className="relative flex items-center justify-center space-x-3 mb-3">
-            <svg className="w-9 h-9 text-[#F7D070] drop-shadow-[0_2px_8px_rgba(212,175,55,0.6)]" viewBox="0 0 100 100" fill="currentColor">
+          {/* Auspicious Wedding Emblem: Swastik at top, Mukut & Topor flanking Shubho Bibaho */}
+          {/* Line 1: Sacred Swastik at Top */}
+          <div className="relative flex items-center justify-center mb-2.5">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[#F7D070] via-[#D4AF37] to-[#876505] flex items-center justify-center text-[#1A0206] font-bold text-base sm:text-lg shadow-lg border border-[#FFF8E7] drop-shadow-[0_2px_10px_rgba(212,175,55,0.7)]">
+              卐
+            </div>
+          </div>
+
+          {/* Line 2: Mukut & Topor around Subho Bibaho */}
+          <div className="relative flex items-center justify-center space-x-2.5 sm:space-x-3.5 mb-4">
+            {/* Topor (Groom Emblem) */}
+            <svg className="w-8 h-8 sm:w-9 sm:h-9 text-[#F7D070] drop-shadow-[0_2px_8px_rgba(212,175,55,0.6)] shrink-0" viewBox="0 0 100 100" fill="currentColor">
               <polygon points="50,10 75,80 25,80" fill="#FFF8E7" stroke="#D4AF37" strokeWidth="3" />
               <circle cx="50" cy="8" r="5" fill="#E2583E" />
               <line x1="35" y1="40" x2="65" y2="40" stroke="#E2583E" strokeWidth="2" />
               <line x1="30" y1="60" x2="70" y2="60" stroke="#D4AF37" strokeWidth="2" />
               <rect x="20" y="80" width="60" height="10" rx="3" fill="#D4AF37" />
             </svg>
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#876505] flex items-center justify-center text-[#1A0206] font-bold text-sm shadow-md border border-[#FCE2A6]">
-              卐
-            </div>
-            <svg className="w-9 h-9 text-[#F7D070] drop-shadow-[0_2px_8px_rgba(212,175,55,0.6)]" viewBox="0 0 100 100" fill="currentColor">
+
+            {/* Auspicious Subho Bibaho Calligraphy in center */}
+            <p className="text-[#FCE2A6] text-sm sm:text-base font-serif font-bold tracking-[0.25em] gold-gradient-text px-1 whitespace-nowrap">
+              {t['curtain-shubh-bibaho'] || 'শুভ বিবাহ'}
+            </p>
+
+            {/* Mukut (Bride Emblem) */}
+            <svg className="w-8 h-8 sm:w-9 sm:h-9 text-[#F7D070] drop-shadow-[0_2px_8px_rgba(212,175,55,0.6)] shrink-0" viewBox="0 0 100 100" fill="currentColor">
               <path d="M 20 75 Q 50 15 80 75 Q 50 55 20 75 Z" fill="#FFF8E7" stroke="#D4AF37" strokeWidth="3" />
               <circle cx="50" cy="18" r="5" fill="#E2583E" />
               <circle cx="35" cy="50" r="3" fill="#D4AF37" />
@@ -418,11 +431,6 @@ export const RoyalWeddingCurtain: React.FC<RoyalWeddingCurtainProps> = ({ langua
               <rect x="15" y="75" width="70" height="8" rx="2" fill="#D4AF37" />
             </svg>
           </div>
-
-          {/* Auspicious Invocation Header */}
-          <p className="text-[#FCE2A6] text-xs sm:text-sm font-serif font-bold tracking-[0.25em] mb-4">
-            {t['curtain-shubh-bibaho'] || 'শুভ বিবাহ'}
-          </p>
 
           {/* Minimalist Single Unveil Callout Button */}
           <div className="flex flex-col items-center">

@@ -17,38 +17,70 @@ export const PetalsCanvas: React.FC<PetalsCanvasProps> = ({ enabled = true }) =>
     if (!ctx) return;
 
     let animationId: number;
+    let isViewingClouds = true;
+
+    const checkCloudsVisibility = () => {
+      const heroCard = document.getElementById('hero-invitation-container');
+      if (heroCard) {
+        const rect = heroCard.getBoundingClientRect();
+        // Petals are suppressed while the user is still in the celestial clouds sky
+        isViewingClouds = rect.top > window.innerHeight * 0.45;
+      } else {
+        isViewingClouds = window.scrollY < window.innerHeight * 0.8;
+      }
+    };
+
+    checkCloudsVisibility();
+    window.addEventListener('scroll', checkCloudsVisibility, { passive: true });
 
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      checkCloudsVisibility();
     };
     resize();
     window.addEventListener('resize', resize);
 
-    const petalCount = 14;
-    const colors = ['#E2583E', '#F7D070', '#C4432B', '#D4AF37', '#8C2B1A', '#FF9E80'];
+    const petalCount = 18;
+    // Rich, authentic velvety rose petal colors
+    const roseColors = [
+      { base: '#700B1A', mid: '#B71C1C', edge: '#D32F2F' }, // Royal Velvet Rose
+      { base: '#560027', mid: '#880E4F', edge: '#AD1457' }, // Deep Burgundy Rose
+      { base: '#880E4F', mid: '#C2185B', edge: '#E91E63' }, // Classic Indian Crimson
+      { base: '#800C1F', mid: '#C62828', edge: '#EF5350' }, // Scarlet Wedding Rose
+      { base: '#4A001F', mid: '#7B112B', edge: '#C2185B' }, // Dark Maroon Velvet
+    ];
 
     const petals = Array.from({ length: petalCount }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      size: Math.random() * 9 + 7,
-      speedY: Math.random() * 1.1 + 0.7,
-      speedX: Math.random() * 0.8 - 0.4,
+      size: Math.random() * 10 + 9,
+      speedY: Math.random() * 0.9 + 0.6,
+      speedX: Math.random() * 0.7 - 0.35,
       angle: Math.random() * 360,
-      spin: Math.random() * 1.8 - 0.9,
-      color: colors[Math.floor(Math.random() * colors.length)]
+      spin: Math.random() * 1.2 - 0.6,
+      flipAngle: Math.random() * Math.PI * 2,
+      flipSpeed: Math.random() * 0.03 + 0.015,
+      palette: roseColors[Math.floor(Math.random() * roseColors.length)]
     }));
 
     const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+      // Do NOT show petals while in the celestial clouds
+      if (isViewingClouds) {
+        animationId = requestAnimationFrame(render);
+        return;
+      }
+
       petals.forEach(p => {
         p.y += p.speedY;
-        p.x += Math.sin(p.y * 0.01) * 0.6 + p.speedX;
+        p.x += Math.sin(p.y * 0.008) * 0.7 + p.speedX;
         p.angle += p.spin;
+        p.flipAngle += p.flipSpeed;
 
-        if (p.y > canvas.height + 25) {
-          p.y = -25;
+        if (p.y > canvas.height + 30) {
+          p.y = -30;
           p.x = Math.random() * canvas.width;
         }
 
@@ -56,66 +88,86 @@ export const PetalsCanvas: React.FC<PetalsCanvasProps> = ({ enabled = true }) =>
         ctx.translate(p.x, p.y);
         ctx.rotate((p.angle * Math.PI) / 180);
 
-        // Organic flower petal
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = 0.82;
+        // 3D fluttering & tumbling effect as petal flips in breeze
+        const flipScale = Math.cos(p.flipAngle);
+        ctx.scale(flipScale, 1);
+
+        const s = p.size;
+
+        // Velvety Rose Petal Gradient (darker base near calyx, rich glowing crimson edge)
+        const radGrad = ctx.createRadialGradient(0, s * 0.3, s * 0.1, 0, -s * 0.2, s * 1.1);
+        radGrad.addColorStop(0, p.palette.base);
+        radGrad.addColorStop(0.55, p.palette.mid);
+        radGrad.addColorStop(1, p.palette.edge);
+
+        ctx.fillStyle = radGrad;
+        ctx.globalAlpha = 0.88;
+
+        // Authentic Cupped Rose Petal Path (Heart-cleft rounded top, smooth curved cheeks, narrow base)
         ctx.beginPath();
-        ctx.moveTo(0, -p.size);
+        // Start at narrow base (calyx attachment)
+        ctx.moveTo(0, s * 0.85);
+
+        // Left curved cheek expanding outward
         ctx.bezierCurveTo(
-          p.size * 0.15, -p.size * 0.94,
-          p.size * 0.42, -p.size * 0.82,
-          p.size * 0.68, -p.size * 0.55
+          -s * 0.35, s * 0.75,
+          -s * 0.85, s * 0.35,
+          -s * 0.82, -s * 0.15
         );
+
+        // Top-left rounded petal lobe
         ctx.bezierCurveTo(
-          p.size * 0.92, -p.size * 0.25,
-          p.size * 0.98, p.size * 0.15,
-          p.size * 0.78, p.size * 0.48
+          -s * 0.80, -s * 0.65,
+          -s * 0.45, -s * 0.95,
+          -s * 0.12, -s * 0.92
         );
+
+        // Gentle central dip / cleft at petal crown
         ctx.bezierCurveTo(
-          p.size * 0.58, p.size * 0.78,
-          p.size * 0.32, p.size * 0.95,
-          p.size * 0.12, p.size
+          -s * 0.05, -s * 0.85,
+          s * 0.05, -s * 0.85,
+          s * 0.12, -s * 0.92
         );
+
+        // Top-right rounded petal lobe
         ctx.bezierCurveTo(
-          0, p.size * 1.04,
-          -p.size * 0.14, p.size * 1.02,
-          -p.size * 0.28, p.size * 0.92
+          s * 0.45, -s * 0.95,
+          s * 0.80, -s * 0.65,
+          s * 0.82, -s * 0.15
         );
+
+        // Right curved cheek tapering down to base
         ctx.bezierCurveTo(
-          -p.size * 0.58, p.size * 0.72,
-          -p.size * 0.86, p.size * 0.38,
-          -p.size * 0.88, p.size * 0.02
+          s * 0.85, s * 0.35,
+          s * 0.35, s * 0.75,
+          0, s * 0.85
         );
-        ctx.bezierCurveTo(
-          -p.size * 0.90, -p.size * 0.32,
-          -p.size * 0.55, -p.size * 0.72,
-          -p.size * 0.20, -p.size * 0.92
-        );
-        ctx.bezierCurveTo(
-          -p.size * 0.08, -p.size * 0.98,
-          -p.size * 0.03, -p.size,
-          0, -p.size
-        );
+
         ctx.closePath();
         ctx.fill();
 
-        // Soft inner petal fold line
-        ctx.strokeStyle = 'rgba(255, 248, 231, 0.32)';
-        ctx.lineWidth = Math.max(0.6, p.size * 0.02);
-        ctx.lineCap = 'round';
+        // Soft velvety specular light curve along curled petal edge
+        ctx.save();
+        ctx.globalAlpha = 0.22;
+        ctx.strokeStyle = '#FFE4E6';
+        ctx.lineWidth = Math.max(0.7, s * 0.05);
         ctx.beginPath();
-        ctx.moveTo(0, -p.size * 0.70);
         ctx.bezierCurveTo(
-          p.size * 0.04, -p.size * 0.42,
-          p.size * 0.08, -p.size * 0.05,
-          p.size * 0.03, p.size * 0.55
+          -s * 0.75, -s * 0.2,
+          -s * 0.65, -s * 0.8,
+          -s * 0.1, -s * 0.88
         );
         ctx.stroke();
+        ctx.restore();
 
-        // Delicate highlight ellipse
-        ctx.globalAlpha = 0.12;
-        ctx.fillStyle = '#FFF8E7';
+        // Subtle shaded inner cup depth
+        ctx.save();
+        ctx.globalAlpha = 0.25;
+        ctx.fillStyle = '#2A0008';
         ctx.beginPath();
+        ctx.ellipse(0, s * 0.35, s * 0.28, s * 0.38, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
         ctx.ellipse(
           -p.size * 0.18, -p.size * 0.28,
           p.size * 0.12, p.size * 0.32,
@@ -133,6 +185,7 @@ export const PetalsCanvas: React.FC<PetalsCanvasProps> = ({ enabled = true }) =>
 
     return () => {
       window.removeEventListener('resize', resize);
+      window.removeEventListener('scroll', checkCloudsVisibility);
       cancelAnimationFrame(animationId);
     };
   }, [active]);

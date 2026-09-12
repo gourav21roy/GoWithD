@@ -1,18 +1,24 @@
 import React from 'react';
 import { ArrowUp, Heart, Sparkles } from 'lucide-react';
-import { Language } from '../types';
+import { Language, GuestSide } from '../types';
 import { translations } from '../data/translations';
 
 interface FooterProps {
   language: Language;
+  guestSide?: GuestSide;
 }
 
-export const Footer: React.FC<FooterProps> = ({ language }) => {
+export const Footer: React.FC<FooterProps> = ({ language, guestSide = 'all' }) => {
   const t = translations[language] || translations.en;
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const coupleDisplayName =
+    guestSide === 'bride'
+      ? `${t['bride-name'] || 'Debanjana Sarkar'} & ${t['groom-name'] || 'Gourav Roy'}`
+      : `${t['groom-name'] || 'Gourav Roy'} & ${t['bride-name'] || 'Debanjana Sarkar'}`;
 
   return (
     <footer className="relative bg-[#020714] text-[#FFF8E7] pt-16 pb-28 px-4 border-t border-[#D4AF37]/30 text-center overflow-hidden">
@@ -34,7 +40,7 @@ export const Footer: React.FC<FooterProps> = ({ language }) => {
         {/* Couple Signature & Hashtag */}
         <div className="space-y-2">
           <h3 className="text-3xl sm:text-4xl font-cursive gold-gradient-text tracking-wide">
-            Gourav Roy & Debanjana Sarkar
+            {coupleDisplayName}
           </h3>
           <p className="text-lg font-serif font-bold text-[#F7D070]">
             #GouravKiDebu

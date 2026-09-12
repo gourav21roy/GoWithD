@@ -20,6 +20,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 }) => {
   const t = translations[language] || translations.en;
 
+  const isBrideFirst = guestSide === 'bride';
+
   const heroDateText =
     guestSide === 'bride'
       ? t['hero-date-bride'] || 'Saturday 21st November 2026 • Subho Bibaho • Kolkata'
@@ -86,28 +88,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           <div className="relative z-30 max-w-2xl w-full mx-auto text-center px-2">
             <div className="glass-card-maroon rounded-3xl p-5 sm:p-9 border-2 border-[#D4AF37]/65 shadow-[0_25px_60px_rgba(0,0,0,0.85)] space-y-5 sm:space-y-6 transform transition-all duration-300">
               
-              {/* Bengali Marriage Auspicious Emblems (Groom Topor + Crisp Lord Ganesha + Bride Mukut) */}
-              <div className="flex items-center justify-center space-x-3 sm:space-x-4 mb-1">
-                {/* Groom's Topor Motif */}
-                <svg className="w-8 h-8 sm:w-10 sm:h-10 text-[#F7D070] drop-shadow-[0_2px_8px_rgba(212,175,55,0.4)]" viewBox="0 0 100 100" fill="currentColor">
-                  <polygon points="50,10 75,80 25,80" fill="#FFF8E7" stroke="#D4AF37" strokeWidth="3" />
-                  <circle cx="50" cy="8" r="5" fill="#E2583E" />
-                  <line x1="35" y1="40" x2="65" y2="40" stroke="#E2583E" strokeWidth="2" />
-                  <line x1="30" y1="60" x2="70" y2="60" stroke="#D4AF37" strokeWidth="2" />
-                  <rect x="20" y="80" width="60" height="10" rx="3" fill="#D4AF37" />
-                </svg>
-
-                {/* CRISP HIGH-DEFINITION LORD GANESHA CENTERPIECE */}
-                <GaneshGraphic className="w-16 h-16 sm:w-20 sm:h-20" />
-
-                {/* Bride's Mukut Motif */}
-                <svg className="w-8 h-8 sm:w-10 sm:h-10 text-[#F7D070] drop-shadow-[0_2px_8px_rgba(212,175,55,0.4)]" viewBox="0 0 100 100" fill="currentColor">
-                  <path d="M15,75 Q50,20 85,75 Q68,60 50,70 Q32,60 15,75 Z" fill="#FFF8E7" stroke="#D4AF37" strokeWidth="3" />
-                  <circle cx="50" cy="35" r="4" fill="#E2583E" />
-                  <circle cx="35" cy="50" r="3" fill="#D4AF37" />
-                  <circle cx="65" cy="50" r="3" fill="#D4AF37" />
-                  <rect x="15" y="75" width="70" height="8" rx="2" fill="#D4AF37" />
-                </svg>
+              {/* LORD GANESHA CENTERPIECE (Mukut and Topor removed as requested) */}
+              <div className="flex items-center justify-center mb-1">
+                <GaneshGraphic className="w-20 h-20 sm:w-24 sm:h-24" />
               </div>
 
               {/* Invocation Mantras */}
@@ -135,69 +118,78 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 {heroSubtext}
               </p>
 
-              {/* COUPLE NAMES */}
+              {/* COUPLE NAMES (Bride first on Bride section; Groom first on Groom section & default) */}
               <div className="py-2 sm:py-3 space-y-3 sm:space-y-4">
-                {/* Groom Name */}
-                <div>
-                  <h2 className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl font-cursive gold-gradient-text tracking-wide drop-shadow-lg px-2 leading-tight">
-                    {t['groom-name']}
-                  </h2>
-                  <p className="text-xs sm:text-sm text-[#FCE2A6]/90 font-serif mt-1 tracking-wide">
-                    {t['groom-parents']}
-                  </p>
-                </div>
+                {isBrideFirst ? (
+                  <>
+                    {/* Bride Name First */}
+                    <div id="bride-details">
+                      <h2 className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl font-cursive gold-gradient-text tracking-wide drop-shadow-lg px-2 leading-tight">
+                        {t['bride-name']}
+                      </h2>
+                      <p className="text-xs sm:text-sm text-[#FCE2A6]/90 font-serif mt-1 tracking-wide">
+                        {t['bride-parents']}
+                      </p>
+                    </div>
 
-                {/* Ampersand Filigree Divider */}
-                <div className="flex items-center justify-center space-x-3 sm:space-x-4 py-0.5">
-                  <span className="h-[1.5px] w-10 sm:w-20 bg-gradient-to-r from-transparent via-[#D4AF37] to-[#FCE2A6]" />
-                  <span className="font-cursive text-2xl sm:text-4xl text-[#F7D070] drop-shadow">&</span>
-                  <span className="h-[1.5px] w-10 sm:w-20 bg-gradient-to-l from-transparent via-[#D4AF37] to-[#FCE2A6]" />
-                </div>
+                    {/* Ampersand Filigree Divider */}
+                    <div className="flex items-center justify-center space-x-3 sm:space-x-4 py-0.5">
+                      <span className="h-[1.5px] w-10 sm:w-20 bg-gradient-to-r from-transparent via-[#D4AF37] to-[#FCE2A6]" />
+                      <span className="font-cursive text-2xl sm:text-4xl text-[#F7D070] drop-shadow">&</span>
+                      <span className="h-[1.5px] w-10 sm:w-20 bg-gradient-to-l from-transparent via-[#D4AF37] to-[#FCE2A6]" />
+                    </div>
 
-                {/* Bride Name */}
-                <div>
-                  <h2 className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl font-cursive gold-gradient-text tracking-wide drop-shadow-lg px-2 leading-tight">
-                    {t['bride-name']}
-                  </h2>
-                  <p className="text-xs sm:text-sm text-[#FCE2A6]/90 font-serif mt-1 tracking-wide">
-                    {t['bride-parents']}
-                  </p>
-                </div>
+                    {/* Groom Name Second */}
+                    <div id="groom-details">
+                      <h2 className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl font-cursive gold-gradient-text tracking-wide drop-shadow-lg px-2 leading-tight">
+                        {t['groom-name']}
+                      </h2>
+                      <p className="text-xs sm:text-sm text-[#FCE2A6]/90 font-serif mt-1 tracking-wide">
+                        {t['groom-parents']}
+                      </p>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {/* Groom Name First */}
+                    <div id="groom-details">
+                      <h2 className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl font-cursive gold-gradient-text tracking-wide drop-shadow-lg px-2 leading-tight">
+                        {t['groom-name']}
+                      </h2>
+                      <p className="text-xs sm:text-sm text-[#FCE2A6]/90 font-serif mt-1 tracking-wide">
+                        {t['groom-parents']}
+                      </p>
+                    </div>
+
+                    {/* Ampersand Filigree Divider */}
+                    <div className="flex items-center justify-center space-x-3 sm:space-x-4 py-0.5">
+                      <span className="h-[1.5px] w-10 sm:w-20 bg-gradient-to-r from-transparent via-[#D4AF37] to-[#FCE2A6]" />
+                      <span className="font-cursive text-2xl sm:text-4xl text-[#F7D070] drop-shadow">&</span>
+                      <span className="h-[1.5px] w-10 sm:w-20 bg-gradient-to-l from-transparent via-[#D4AF37] to-[#FCE2A6]" />
+                    </div>
+
+                    {/* Bride Name Second */}
+                    <div id="bride-details">
+                      <h2 className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl font-cursive gold-gradient-text tracking-wide drop-shadow-lg px-2 leading-tight">
+                        {t['bride-name']}
+                      </h2>
+                      <p className="text-xs sm:text-sm text-[#FCE2A6]/90 font-serif mt-1 tracking-wide">
+                        {t['bride-parents']}
+                      </p>
+                    </div>
+                  </>
+                )}
               </div>
 
-              {/* Wedding Hashtag Badge */}
-              <div className="pt-1">
-                <span className="inline-flex items-center space-x-1.5 px-5 py-1.5 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/70 text-[#FCE2A6] font-serif font-bold text-sm sm:text-base tracking-wider shadow-inner">
-                  <Sparkles className="w-4 h-4 text-[#F7D070]" />
-                  <span className="lowercase font-semibold">#GouravKiDebu</span>
-                </span>
-              </div>
-
-              {/* Quick Action CTA Buttons */}
+              {/* Quick Action CTA Button */}
               <div className="pt-2 sm:pt-3 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
-                <button
-                  id="hero-calendar-cta-btn"
-                  onClick={onOpenCalendar}
-                  className="inline-flex items-center space-x-2 px-5 sm:px-6 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#AA820A] hover:from-[#F7D070] hover:to-[#D4AF37] text-[#1A0206] font-bold text-xs sm:text-sm tracking-wider shadow-xl transition-all transform hover:-translate-y-0.5 cursor-pointer"
-                >
-                  <Calendar className="w-4 h-4 text-[#1A0206] shrink-0" />
-                  <span>{t['save-date-btn']}</span>
-                </button>
-
                 <a
+                  id="hero-events-cta-btn"
                   href="#events-section"
-                  className="inline-flex items-center space-x-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full glass-card-royal border border-[#D4AF37]/60 hover:border-[#D4AF37] text-[#FCE2A6] hover:text-white font-semibold text-xs sm:text-sm tracking-wider shadow-md transition-all hover:bg-[#D4AF37]/15"
+                  className="inline-flex items-center space-x-2 px-6 py-2 sm:py-2.5 rounded-full bg-gradient-to-r from-[#D4AF37] to-[#AA820A] hover:from-[#F7D070] hover:to-[#D4AF37] text-[#1A0206] font-bold text-xs sm:text-sm tracking-wider shadow-xl transition-all transform hover:-translate-y-0.5 cursor-pointer"
                 >
-                  <MapPin className="w-4 h-4 text-[#F7D070] shrink-0" />
+                  <MapPin className="w-4 h-4 text-[#1A0206] shrink-0" />
                   <span>{t['view-events-btn']}</span>
-                </a>
-
-                <a
-                  href="#blessings-section"
-                  className="inline-flex items-center space-x-1.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs text-[#FCE2A6]/90 hover:text-white hover:underline transition-colors"
-                >
-                  <Heart className="w-3.5 h-3.5 text-rose-400 shrink-0" />
-                  <span>{t['nav-blessings']}</span>
                 </a>
               </div>
 

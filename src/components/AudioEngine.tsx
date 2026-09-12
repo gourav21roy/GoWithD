@@ -23,11 +23,11 @@ export const AudioEngine: React.FC<AudioEngineProps> = ({ language }) => {
   const [isBuffering, setIsBuffering] = useState(false);
 
   const ytPlayerRef = useRef<any>(null);
-  const pendingPlayRef = useRef<boolean>(false);
+  const pendingPlayRef = useRef<boolean>(true); // By default request play
 
   const t = translations[language] || translations.en;
 
-  // Initialize YouTube Iframe API
+  // Initialize YouTube Iframe API with default autoplay attempt
   useEffect(() => {
     let checkInterval: any;
 
@@ -42,7 +42,7 @@ export const AudioEngine: React.FC<AudioEngineProps> = ({ language }) => {
             width: '1',
             videoId: YOUTUBE_VIDEO_ID,
             playerVars: {
-              autoplay: 0,
+              autoplay: 1,
               controls: 0,
               loop: 1,
               playlist: YOUTUBE_VIDEO_ID,
@@ -52,10 +52,13 @@ export const AudioEngine: React.FC<AudioEngineProps> = ({ language }) => {
             events: {
               onReady: (event: any) => {
                 setIsReady(true);
-                if (pendingPlayRef.current) {
-                  pendingPlayRef.current = false;
+                try {
                   event.target.playVideo();
                   setIsPlaying(true);
+                  pendingPlayRef.current = false;
+                } catch {
+                  // If browser blocked unmuted autoplay, queue for first user gesture
+                  pendingPlayRef.current = true;
                 }
               },
               onStateChange: (event: any) => {
@@ -103,8 +106,31 @@ export const AudioEngine: React.FC<AudioEngineProps> = ({ language }) => {
       };
     }
 
+    // Modern browsers require a user interaction (tap/click/scroll) if unprompted autoplay policy engages
+    const triggerAudioOnFirstInteraction = () => {
+      if (ytPlayerRef.current && typeof ytPlayerRef.current.playVideo === 'function') {
+        try {
+          const state = ytPlayerRef.current.getPlayerState();
+          if (state !== window.YT?.PlayerState?.PLAYING) {
+            ytPlayerRef.current.playVideo();
+            setIsPlaying(true);
+          }
+        } catch {}
+      }
+      window.removeEventListener('click', triggerAudioOnFirstInteraction);
+      window.removeEventListener('touchstart', triggerAudioOnFirstInteraction);
+      window.removeEventListener('scroll', triggerAudioOnFirstInteraction);
+    };
+
+    window.addEventListener('click', triggerAudioOnFirstInteraction, { once: true });
+    window.addEventListener('touchstart', triggerAudioOnFirstInteraction, { once: true });
+    window.addEventListener('scroll', triggerAudioOnFirstInteraction, { once: true });
+
     return () => {
       if (checkInterval) clearInterval(checkInterval);
+      window.removeEventListener('click', triggerAudioOnFirstInteraction);
+      window.removeEventListener('touchstart', triggerAudioOnFirstInteraction);
+      window.removeEventListener('scroll', triggerAudioOnFirstInteraction);
     };
   }, []);
 
@@ -185,15 +211,7 @@ export const AudioEngine: React.FC<AudioEngineProps> = ({ language }) => {
           aria-label={isPlaying ? t['music-pause'] : t['music-play']}
           className="flex items-center space-x-1.5 sm:space-x-2 px-2 sm:px-2.5 h-full text-[#FCE2A6] hover:text-white transition-colors group cursor-pointer whitespace-nowrap select-none"
         >
-          {isPlaying ? (
-            <div className="flex items-center space-x-0.5 sm:space-x-1 h-3.5 shrink-0">
-              <span className="w-0.5 sm:w-1 bg-[#F7D070] rounded-full animate-[pulse_0.6s_ease-in-out_infinite] h-3.5" />
-              <span className="w-0.5 sm:w-1 bg-[#D4AF37] rounded-full animate-[pulse_0.4s_ease-in-out_infinite] h-2.5" />
-              <span className="w-0.5 sm:w-1 bg-[#FCE2A6] rounded-full animate-[pulse_0.8s_ease-in-out_infinite] h-3.5" />
-            </div>
-          ) : (
-            <Music className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F7D070] group-hover:rotate-12 transition-transform shrink-0" />
-          )}
+          <Music className={`w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#F7D070] shrink-0 ${isPlaying ? 'animate-pulse' : 'group-hover:rotate-12 transition-transform'}`} />
 
           <span className="text-[11px] sm:text-xs md:text-sm font-semibold tracking-wide whitespace-nowrap">
             {isBuffering
