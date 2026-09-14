@@ -13,7 +13,7 @@ import React, { useState } from 'react';
  * Default placeholder: '/ganesh_placeholder.svg'
  * ============================================================================
  */
-export const CUSTOM_GANESH_IMAGE_SRC = '/ganesh_placeholder.svg';
+export const CUSTOM_GANESH_IMAGE_SRC = '/ganesh2.svg';
 
 interface GaneshGraphicProps {
   className?: string;
