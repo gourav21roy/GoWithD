@@ -80,11 +80,8 @@ export const CelestialCloudSky: React.FC<CelestialCloudSkyProps> = ({ className 
       </div>
 
       {/* ========================================================================= */}
-      {/* 3. REVEALED CELESTIAL STAGE: Offset for Curtain Scroll Threshold (240px)   */}
-      {/*    Begins at top: 260px on mobile, 240px on desktop so all celestial       */}
-      {/*    elements are framed right in the viewport once curtains are parted.     */}
-      {/* ========================================================================= */}
-      <div className="absolute inset-x-0 top-[260px] sm:top-[240px] bottom-0 overflow-hidden pointer-events-none">
+      {/* 3. REVEALED CELESTIAL STAGE: Balanced offset for parted curtains */}
+      <div className="absolute inset-x-0 top-[140px] sm:top-[120px] bottom-0 overflow-hidden pointer-events-none">
 
         {/* ----------------------------------------------------------------------- */}
         {/* A. Soft Ambient Cosmic Nebula Glow behind Moon (z-[2])                  */}
@@ -279,7 +276,7 @@ export const CelestialCloudSky: React.FC<CelestialCloudSkyProps> = ({ className 
         {/*    Wispy, semi-transparent veil drifting across the upper sky           */}
         {/* ----------------------------------------------------------------------- */}
         <motion.div
-          className="absolute top-[10%] sm:top-[8%] left-0 w-[200%] h-36 sm:h-48 md:h-56 pointer-events-none z-[15]"
+          className="absolute top-[10%] sm:top-[8%] left-0 w-[200%] h-44 sm:h-56 md:h-64 pointer-events-none z-[15]"
           style={{
             maskImage: 'linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%)',
             WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 25%, black 75%, transparent 100%)',
@@ -337,7 +334,7 @@ export const CelestialCloudSky: React.FC<CelestialCloudSkyProps> = ({ className 
         {/*    Billowing voluminous clouds with warm gold and silver rim highlights */}
         {/* ----------------------------------------------------------------------- */}
         <motion.div
-          className="absolute top-[42%] sm:top-[38%] left-0 w-[200%] h-56 sm:h-72 md:h-84 pointer-events-none z-[25]"
+          className="absolute top-[42%] sm:top-[38%] left-0 w-[200%] h-64 sm:h-84 md:h-96 pointer-events-none z-[25]"
           style={{
             maskImage: 'linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)',
             WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%)',
@@ -399,7 +396,7 @@ export const CelestialCloudSky: React.FC<CelestialCloudSkyProps> = ({ className 
         {/* H. CLOUD LAYER 3: LOWER HORIZON MIST & WARM AMBER HAZE (z-[30])         */}
         {/* ----------------------------------------------------------------------- */}
         <motion.div
-          className="absolute bottom-0 left-0 w-[200%] h-40 sm:h-52 md:h-60 pointer-events-none z-[30]"
+          className="absolute bottom-0 left-0 w-[200%] h-48 sm:h-60 md:h-72 pointer-events-none z-[30]"
           style={{
             maskImage: 'linear-gradient(to top, black 25%, transparent 100%)',
             WebkitMaskImage: 'linear-gradient(to top, black 25%, transparent 100%)',
@@ -442,7 +439,7 @@ export const CelestialCloudSky: React.FC<CelestialCloudSkyProps> = ({ className 
       {/* 4. SECTION BOTTOM TRANSITION VIGNETTE (z-[35])                            */}
       {/*    Melts smoothly into the deep navy royal wedding invitation section      */}
       {/* ========================================================================= */}
-      <div className="absolute inset-x-0 bottom-0 h-32 sm:h-44 bg-gradient-to-t from-[#020512] via-[#020512]/65 to-transparent pointer-events-none z-[35]" />
+      <div className="absolute inset-x-0 bottom-0 h-36 sm:h-52 bg-gradient-to-t from-[#020512] via-[#020512]/65 to-transparent pointer-events-none z-[35]" />
     </div>
   );
 };

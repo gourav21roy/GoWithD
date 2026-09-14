@@ -6,6 +6,7 @@ import { RoyalWeddingCurtain } from './RoyalWeddingCurtain';
 import { GaneshGraphic } from './GaneshGraphic';
 import { FloatingLanterns } from './FloatingLanterns';
 import { CelestialCloudSky } from './CelestialCloudSky';
+import { triggerRosePetalsShower } from '../utils/firecrackers';
 
 interface HeroSectionProps {
   language: Language;
@@ -24,9 +25,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
   const heroDateText =
     guestSide === 'bride'
-      ? t['hero-date-bride'] || 'Saturday 21st November 2026 • Subho Bibaho • Kolkata'
+      ? t['hero-date-bride'] || 'Saturday 21st November 2026 • Wedding • Kolkata'
       : guestSide === 'groom'
-      ? t['hero-date-groom'] || 'Monday 23rd November 2026 • Preeti Bhoj Reception • Kolkata'
+      ? t['hero-date-groom'] || 'Monday 23rd November 2026 • Reception • Kolkata'
       : t['hero-date-header'] || 'Saturday 21st & Monday 23rd November 2026 • Kolkata';
 
   const heroSubtext =
@@ -45,12 +46,34 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
              (Pure moving clouds, starry sky, and floating lanterns revealed when curtains open) */}
       <section
         id="celestial-sky-filler"
-        className="relative min-h-[130vh] sm:min-h-[115vh] w-full flex flex-col justify-center items-center overflow-hidden select-none pointer-events-none"
+        className="relative h-[75vh] sm:h-[82vh] min-h-[530px] max-h-[720px] w-full flex flex-col justify-end items-center overflow-hidden select-none"
       >
         {/* Animated Moving Clouds, Twinkling Stars, Moon, Constellations with integrated Floating Lanterns */}
         <CelestialCloudSky>
           <FloatingLanterns />
         </CelestialCloudSky>
+
+        {/* Blinking Scroll Down Arrow & Cue (Lets users know to scroll further to the invitation) */}
+        <div className="relative z-30 pb-7 sm:pb-9 flex flex-col items-center pointer-events-auto">
+          <button
+            onClick={(e) => {
+              const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+              const x = (rect.left + rect.width / 2) / (window.innerWidth || 1);
+              const y = (rect.top + rect.height / 2) / (window.innerHeight || 1);
+              triggerRosePetalsShower(x, Math.max(0.2, y - 0.05));
+              const el = document.getElementById('hero-invitation-container') || document.getElementById('hero-section');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="group flex flex-col items-center cursor-pointer transition-transform hover:scale-105 active:scale-95 focus:outline-none"
+            aria-label="Scroll to wedding invitation"
+          >
+            <div className="relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gradient-to-b from-[#1A0206]/90 to-[#32060C]/90 border border-[#F7D070]/80 text-[#FCE2A6] shadow-[0_0_20px_rgba(212,175,55,0.6)] backdrop-blur-sm">
+              <ChevronDown className="w-5 h-5 text-[#F7D070] animate-bounce stroke-[2.5]" />
+              {/* Blinking outer pulse ring */}
+              <span className="absolute -inset-1 rounded-full border border-[#FFF8E7] animate-ping opacity-75 pointer-events-none" />
+            </div>
+          </button>
+        </div>
       </section>
 
       {/* 2. HERO SECTION: Royal Wedding Invitation Card
@@ -199,8 +222,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <div className="pt-6 flex justify-center">
               <a
                 href="#calendar-section"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+                  const x = (rect.left + rect.width / 2) / (window.innerWidth || 1);
+                  const y = (rect.top + rect.height / 2) / (window.innerHeight || 1);
+                  triggerRosePetalsShower(x, Math.max(0.3, y));
+                  const el = document.getElementById('calendar-section');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
                 aria-label="Scroll to Calendar"
-                className="p-2 text-[#FCE2A6]/60 hover:text-[#FCE2A6] transition-colors animate-bounce"
+                className="p-2 text-[#FCE2A6]/60 hover:text-[#FCE2A6] transition-colors animate-bounce cursor-pointer"
               >
                 <ChevronDown className="w-6 h-6" />
               </a>

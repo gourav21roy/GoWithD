@@ -1,6 +1,6 @@
 {
   "name": "Gourav & Debanjana Wedding Invitation",
-  "description": "Royal wedding and reception invitation for Gourav Roy and Debanjana Sarkar with event details, interactive calendar, countdown, and guest blessings.",
+  "description": "Wedding and Reception invitation of Gourav and Debanjana.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

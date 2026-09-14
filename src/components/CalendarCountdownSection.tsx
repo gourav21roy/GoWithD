@@ -25,10 +25,10 @@ export const CalendarCountdownSection: React.FC<CalendarCountdownSectionProps> =
   });
 
   useEffect(() => {
-    // Nov 23, 2026 19:00:00 IST for groom side; Nov 21, 2026 18:30:00 IST for bride or all
+    // Nov 23, 2026 19:00:00 IST for groom side; Nov 21, 2026 16:30:00 IST for bride or all (Borjatri at 4:30 PM)
     const targetIso = guestSide === 'groom'
       ? '2026-11-23T19:00:00+05:30'
-      : '2026-11-21T18:30:00+05:30';
+      : '2026-11-21T16:30:00+05:30';
     const targetDate = new Date(targetIso).getTime();
 
     const calculateTime = () => {
@@ -102,12 +102,12 @@ export const CalendarCountdownSection: React.FC<CalendarCountdownSectionProps> =
                   const el = document.getElementById('events-section');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
-                title="Click to view Subho Bibaho Ceremony details"
-                className="w-full aspect-square flex flex-col items-center justify-center p-0.5 rounded-lg sm:rounded-xl relative group cursor-pointer transform hover:scale-105 active:scale-95 transition-all text-center bg-gradient-to-br from-[#F7D070] via-[#D4AF37] to-[#AA820A] text-[#1A0206] font-bold shadow-lg ring-1 sm:ring-2 ring-[#FFF8E7]"
+                title={language === 'bn' ? 'শুভ বিবাহ অনুষ্ঠানের বিবরণ' : language === 'hi' ? 'शुभ विवाह समारोह विवरण' : 'Click to view Wedding Ceremony details'}
+                className="w-full min-h-[46px] xs:min-h-[50px] sm:min-h-[54px] flex flex-col items-center justify-center p-0.5 sm:p-1 rounded-lg sm:rounded-xl relative group cursor-pointer transform hover:scale-105 active:scale-95 transition-all text-center bg-gradient-to-br from-[#F7D070] via-[#D4AF37] to-[#AA820A] text-[#1A0206] font-bold shadow-lg ring-1 sm:ring-2 ring-[#FFF8E7]"
               >
-                <span className="text-xs sm:text-base font-bold leading-none">21</span>
-                <span className="text-[7px] sm:text-[9px] uppercase font-extrabold tracking-tighter leading-none mt-0.5 sm:mt-1">
-                  Wedding
+                <span className="text-xs sm:text-base font-bold leading-none text-[#1A0206]">21</span>
+                <span className="text-[8px] xs:text-[9px] sm:text-[10px] font-extrabold tracking-tight leading-tight mt-0.5 text-[#1A0206] whitespace-nowrap px-0.5">
+                  {language === 'bn' ? 'শুভ বিবাহ' : language === 'hi' ? 'शुभ विवाह' : 'Wedding'}
                 </span>
                 <span className="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5 sm:h-3 sm:w-3">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FFF8E7] opacity-75" />
@@ -133,16 +133,16 @@ export const CalendarCountdownSection: React.FC<CalendarCountdownSectionProps> =
                   const el = document.getElementById('events-section');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
-                title="Click to view Preeti Bhoj Reception details"
-                className="w-full aspect-square flex flex-col items-center justify-center p-0.5 rounded-lg sm:rounded-xl relative group cursor-pointer transform hover:scale-105 active:scale-95 transition-all text-center bg-gradient-to-br from-rose-600 via-rose-700 to-[#4A0E17] text-[#FFF8E7] font-bold shadow-lg ring-1 sm:ring-2 ring-[#F7D070]"
+                title={language === 'bn' ? 'প্রীতিভোজ অনুষ্ঠানের বিবরণ' : language === 'hi' ? 'रिसेप्शन समारोह विवरण' : 'Click to view Reception details'}
+                className="w-full min-h-[46px] xs:min-h-[50px] sm:min-h-[54px] flex flex-col items-center justify-center p-0.5 sm:p-1 rounded-lg sm:rounded-xl relative group cursor-pointer transform hover:scale-105 active:scale-95 transition-all text-center bg-gradient-to-br from-blue-600 via-blue-700 to-[#0A1931] text-[#FFF8E7] font-bold shadow-lg ring-1 sm:ring-2 ring-[#F7D070] hover:ring-sky-300 shadow-blue-950/50"
               >
-                <span className="text-xs sm:text-base font-bold leading-none">23</span>
-                <span className="text-[7px] sm:text-[9px] uppercase font-extrabold tracking-tighter leading-none mt-0.5 sm:mt-1 text-[#FCE2A6]">
-                  Dinner
+                <span className="text-xs sm:text-base font-bold leading-none text-white drop-shadow-sm">23</span>
+                <span className="text-[8px] xs:text-[9px] sm:text-[10px] font-bold tracking-tight leading-tight mt-0.5 text-[#FCE2A6] drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)] whitespace-nowrap px-0.5">
+                  {language === 'bn' ? 'প্রীতিভোজ' : language === 'hi' ? 'रिसेप्शन' : 'Reception'}
                 </span>
                 <span className="absolute -top-0.5 -right-0.5 flex h-2.5 w-2.5 sm:h-3 sm:w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-full w-full bg-rose-300 border border-[#FCE2A6]" />
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-full w-full bg-sky-300 border border-[#FCE2A6]" />
                 </span>
               </button>
             )}
@@ -178,7 +178,7 @@ export const CalendarCountdownSection: React.FC<CalendarCountdownSectionProps> =
             )}
             {guestSide !== 'bride' && (
               <div className="flex items-center space-x-2">
-                <span className="w-3.5 h-3.5 rounded-full bg-rose-600 inline-block shadow shrink-0" />
+                <span className="w-3.5 h-3.5 rounded-full bg-blue-600 inline-block shadow shrink-0 ring-1 ring-blue-400/60" />
                 <span className="text-[#FCE2A6]">{t['legend-reception']}</span>
               </div>
             )}
@@ -191,9 +191,9 @@ export const CalendarCountdownSection: React.FC<CalendarCountdownSectionProps> =
             <Clock className="w-4 h-4 text-[#F7D070]" />
             <span className="font-semibold tracking-wide">
               {guestSide === 'bride'
-                ? (language === 'bn' ? 'শুভ বিবাহ অনুষ্ঠানের ক্ষণ গণনা' : language === 'hi' ? 'शुभ विवाह संस्कार की उलटी गिनती' : 'Countdown to Subho Bibaho Wedding')
+                ? (language === 'bn' ? 'শুভ বিবাহ অনুষ্ঠানের ক্ষণ গণনা' : language === 'hi' ? 'शुभ विवाह समारोह की उलटी गिनती' : 'Countdown to Wedding Ceremony')
                 : guestSide === 'groom'
-                ? (language === 'bn' ? 'শুভ প্রীতিভোজের ক্ষণ গণনা' : language === 'hi' ? 'शुभ प्रीतिभোজ की उलटी गिनती' : 'Countdown to Preeti Bhoj Reception')
+                ? (language === 'bn' ? 'শুভ প্রীতিভোজের ক্ষণ গণনা' : language === 'hi' ? 'रिसेप्शन समारोह की उलटी गिनती' : 'Countdown to Reception')
                 : t['countdown-title']}
             </span>
           </div>

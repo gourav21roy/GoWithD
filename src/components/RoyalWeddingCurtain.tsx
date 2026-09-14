@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronDown, Sparkles } from 'lucide-react';
 import { Language } from '../types';
 import { translations } from '../data/translations';
+import { triggerRosePetalsShower } from '../utils/firecrackers';
 
 interface RoyalWeddingCurtainProps {
   language: Language;
@@ -29,11 +30,25 @@ export const RoyalWeddingCurtain: React.FC<RoyalWeddingCurtainProps> = ({ langua
   }, [handleScroll]);
 
   // Smoothly trigger opening when user taps the curtain or seal
-  const handleUnveilClick = () => {
-    window.scrollTo({
-      top: SCROLL_THRESHOLD + 20,
-      behavior: 'smooth'
-    });
+  const handleUnveilClick = (e?: React.MouseEvent) => {
+    let originX = 0.5;
+    let originY = 0.55;
+    if (e && e.currentTarget) {
+      const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+      originX = (rect.left + rect.width / 2) / (window.innerWidth || 1);
+      originY = (rect.top + rect.height / 2) / (window.innerHeight || 1);
+    }
+    triggerRosePetalsShower(originX, originY);
+
+    const heroEl = document.getElementById('hero-invitation-container') || document.getElementById('hero-section');
+    if (heroEl) {
+      heroEl.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollTo({
+        top: SCROLL_THRESHOLD + 400,
+        behavior: 'smooth'
+      });
+    }
   };
 
   // If user has scrolled way past the hero section, avoid rendering overhead
@@ -204,6 +219,55 @@ export const RoyalWeddingCurtain: React.FC<RoyalWeddingCurtainProps> = ({ langua
               />
             ))}
           </g>
+
+          {/* Grand Golden Silk Ceremonial Ribbon Sash across Left Curtain */}
+          <g id="left-ceremonial-ribbon">
+            {/* Ribbon Drop Shadow */}
+            <path
+              d="M 0 497 C 160 522, 350 500, 530 505"
+              fill="none"
+              stroke="rgba(0,0,0,0.6)"
+              strokeWidth="24"
+              strokeLinecap="round"
+            />
+            {/* Broad Rich Golden Satin Ribbon */}
+            <path
+              d="M 0 493 C 160 518, 350 496, 530 501"
+              fill="none"
+              stroke="url(#silkGoldRibbon)"
+              strokeWidth="18"
+              strokeLinecap="round"
+            />
+            {/* Golden Zari Embroidery Edges */}
+            <path
+              d="M 0 484 C 160 509, 350 487, 530 492"
+              fill="none"
+              stroke="url(#goldZariGrad)"
+              strokeWidth="2.5"
+            />
+            <path
+              d="M 0 502 C 160 527, 350 505, 530 510"
+              fill="none"
+              stroke="url(#goldZariGrad)"
+              strokeWidth="2.5"
+            />
+            {/* Golden Ribbon Bow & Flowing Ribbon Tails near Center */}
+            <g transform="translate(470, 492)">
+              <path
+                d="M 0 5 C -25 -18, -55 10, -5 18 Z"
+                fill="url(#silkGoldRibbon)"
+                stroke="#D4AF37"
+                strokeWidth="2"
+              />
+              <path
+                d="M -8 18 C -22 45, -35 80, -25 110 L -14 110 C -22 80, -12 45, 0 18 Z"
+                fill="url(#silkGoldRibbon)"
+                stroke="#D4AF37"
+                strokeWidth="1.5"
+              />
+              <line x1="-25" y1="110" x2="-14" y2="110" stroke="#FCE2A6" strokeWidth="4" />
+            </g>
+          </g>
         </svg>
       </div>
 
@@ -305,6 +369,55 @@ export const RoyalWeddingCurtain: React.FC<RoyalWeddingCurtainProps> = ({ langua
               />
             ))}
           </g>
+
+          {/* Grand Golden Silk Ceremonial Ribbon Sash across Right Curtain */}
+          <g id="right-ceremonial-ribbon">
+            {/* Ribbon Drop Shadow */}
+            <path
+              d="M 0 505 C 180 500, 370 522, 530 497"
+              fill="none"
+              stroke="rgba(0,0,0,0.6)"
+              strokeWidth="24"
+              strokeLinecap="round"
+            />
+            {/* Broad Rich Golden Satin Ribbon */}
+            <path
+              d="M 0 501 C 180 496, 370 518, 530 493"
+              fill="none"
+              stroke="url(#silkGoldRibbon)"
+              strokeWidth="18"
+              strokeLinecap="round"
+            />
+            {/* Golden Zari Embroidery Edges */}
+            <path
+              d="M 0 492 C 180 487, 370 509, 530 484"
+              fill="none"
+              stroke="url(#goldZariGrad)"
+              strokeWidth="2.5"
+            />
+            <path
+              d="M 0 510 C 180 505, 370 527, 530 502"
+              fill="none"
+              stroke="url(#goldZariGrad)"
+              strokeWidth="2.5"
+            />
+            {/* Golden Ribbon Bow & Flowing Ribbon Tails near Center */}
+            <g transform="translate(60, 492)">
+              <path
+                d="M 0 5 C 25 -18, 55 10, 5 18 Z"
+                fill="url(#silkGoldRibbon)"
+                stroke="#D4AF37"
+                strokeWidth="2"
+              />
+              <path
+                d="M 8 18 C 22 45, 35 80, 25 110 L 14 110 C 22 80, 12 45, 0 18 Z"
+                fill="url(#silkGoldRibbon)"
+                stroke="#D4AF37"
+                strokeWidth="1.5"
+              />
+              <line x1="14" y1="110" x2="25" y2="110" stroke="#FCE2A6" strokeWidth="4" />
+            </g>
+          </g>
         </svg>
       </div>
 
@@ -392,24 +505,16 @@ export const RoyalWeddingCurtain: React.FC<RoyalWeddingCurtainProps> = ({ langua
         }}
       >
         <div
-          className="relative max-w-xs sm:max-w-sm w-full bg-[#1A0206]/95 border-2 border-[#D4AF37] rounded-3xl p-6 sm:p-7 text-center shadow-[0_25px_65px_rgba(0,0,0,0.95)] backdrop-blur-md cursor-pointer pointer-events-auto transform hover:scale-[1.02] transition-transform duration-200"
+          className="relative w-32 h-32 xs:w-34 xs:h-34 sm:w-36 sm:h-36 rounded-full bg-gradient-to-b from-[#6A0617] via-[#480410] to-[#250208] border-2 border-[#D4AF37] p-2 flex flex-col items-center justify-center text-center shadow-[0_15px_40px_rgba(0,0,0,0.9),inset_0_2px_8px_rgba(247,208,112,0.35),inset_0_-4px_12px_rgba(0,0,0,0.8)] backdrop-blur-md cursor-pointer pointer-events-auto transform hover:scale-[1.03] active:scale-[0.98] transition-all duration-300"
           onClick={handleUnveilClick}
         >
-          {/* Subtle Outer Glowing Ring */}
-          <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-[#D4AF37]/30 via-[#FCE2A6]/40 to-[#D4AF37]/30 blur-sm pointer-events-none" />
+          {/* Concentric Stamped Wax Rim with Gold Beaded Dash */}
+          <div className="absolute inset-1 rounded-full border border-dashed border-[#F7D070]/50 pointer-events-none" />
 
-          {/* Auspicious Wedding Emblem: Swastik at top, Mukut & Topor flanking Shubho Bibaho */}
-          {/* Line 1: Sacred Swastik at Top */}
-          <div className="relative flex items-center justify-center mb-2.5">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-[#F7D070] via-[#D4AF37] to-[#876505] flex items-center justify-center text-[#1A0206] font-bold text-base sm:text-lg shadow-lg border border-[#FFF8E7] drop-shadow-[0_2px_10px_rgba(212,175,55,0.7)]">
-              卐
-            </div>
-          </div>
-
-          {/* Line 2: Mukut & Topor around Subho Bibaho */}
-          <div className="relative flex items-center justify-center space-x-2.5 sm:space-x-3.5 mb-4">
+          {/* Sacred Crest: Swastik Flanked by Groom & Bride Emblems (Topor & Mukut) */}
+          <div className="relative flex items-center justify-center space-x-1.5 mb-1.5">
             {/* Topor (Groom Emblem) */}
-            <svg className="w-8 h-8 sm:w-9 sm:h-9 text-[#F7D070] drop-shadow-[0_2px_8px_rgba(212,175,55,0.6)] shrink-0" viewBox="0 0 100 100" fill="currentColor">
+            <svg className="w-3.5 h-3.5 text-[#F7D070] drop-shadow-[0_1px_3px_rgba(212,175,55,0.6)] shrink-0" viewBox="0 0 100 100" fill="currentColor">
               <polygon points="50,10 75,80 25,80" fill="#FFF8E7" stroke="#D4AF37" strokeWidth="3" />
               <circle cx="50" cy="8" r="5" fill="#E2583E" />
               <line x1="35" y1="40" x2="65" y2="40" stroke="#E2583E" strokeWidth="2" />
@@ -417,13 +522,13 @@ export const RoyalWeddingCurtain: React.FC<RoyalWeddingCurtainProps> = ({ langua
               <rect x="20" y="80" width="60" height="10" rx="3" fill="#D4AF37" />
             </svg>
 
-            {/* Auspicious Subho Bibaho Calligraphy in center */}
-            <p className="text-[#FCE2A6] text-sm sm:text-base font-serif font-bold tracking-[0.25em] gold-gradient-text px-1 whitespace-nowrap">
-              {t['curtain-shubh-bibaho'] || 'শুভ বিবাহ'}
-            </p>
+            {/* Sacred Swastik */}
+            <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#F7D070] via-[#D4AF37] to-[#876505] flex items-center justify-center text-[#1A0206] font-bold text-[10px] shadow-sm border border-[#FFF8E7] drop-shadow-[0_1px_4px_rgba(212,175,55,0.7)]">
+              卐
+            </div>
 
             {/* Mukut (Bride Emblem) */}
-            <svg className="w-8 h-8 sm:w-9 sm:h-9 text-[#F7D070] drop-shadow-[0_2px_8px_rgba(212,175,55,0.6)] shrink-0" viewBox="0 0 100 100" fill="currentColor">
+            <svg className="w-3.5 h-3.5 text-[#F7D070] drop-shadow-[0_1px_3px_rgba(212,175,55,0.6)] shrink-0" viewBox="0 0 100 100" fill="currentColor">
               <path d="M 20 75 Q 50 15 80 75 Q 50 55 20 75 Z" fill="#FFF8E7" stroke="#D4AF37" strokeWidth="3" />
               <circle cx="50" cy="18" r="5" fill="#E2583E" />
               <circle cx="35" cy="50" r="3" fill="#D4AF37" />
@@ -432,17 +537,23 @@ export const RoyalWeddingCurtain: React.FC<RoyalWeddingCurtainProps> = ({ langua
             </svg>
           </div>
 
-          {/* Minimalist Single Unveil Callout Button */}
-          <div className="flex flex-col items-center">
-            <button
-              id="curtain-unveil-btn"
-              onClick={handleUnveilClick}
-              className="inline-flex items-center space-x-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#FCE2A6] to-[#D4AF37] text-[#1A0206] font-serif font-bold text-xs sm:text-sm tracking-wider shadow-[0_4px_20px_rgba(212,175,55,0.45)] hover:brightness-110 active:scale-95 transition-all"
-            >
-              <Sparkles className="w-3.5 h-3.5 text-[#1A0206] shrink-0" />
-              <span>{t['curtain-unveil'] || 'Scroll to open invitation'}</span>
-              <ChevronDown className="w-4 h-4 text-[#1A0206] animate-bounce shrink-0" />
-            </button>
+          {/* Centered Multi-line Scroll to Open Button */}
+          <button
+            id="curtain-unveil-btn"
+            onClick={handleUnveilClick}
+            className="inline-flex flex-col items-center justify-center px-2.5 py-1 rounded-lg bg-gradient-to-r from-[#D4AF37] via-[#FCE2A6] to-[#D4AF37] text-[#1A0206] font-serif font-bold shadow-[0_3px_10px_rgba(0,0,0,0.6)] hover:brightness-110 active:scale-95 transition-all group cursor-pointer z-10 border border-[#FFF8E7]/60"
+          >
+            <span className="tracking-widest uppercase font-black text-[8px] sm:text-[9px] text-[#1A0206] drop-shadow-sm leading-none whitespace-nowrap">
+              {t['curtain-unveil-line1'] || 'Scroll'}
+            </span>
+            <span className="tracking-widest uppercase font-bold text-[7.5px] sm:text-[8.5px] text-[#1A0206] drop-shadow-sm leading-tight whitespace-nowrap mt-0.5">
+              {t['curtain-unveil-line2'] || 'To Open'}
+            </span>
+          </button>
+
+          {/* Animated Chevron Outside the Button */}
+          <div className="flex items-center justify-center mt-[5px] pointer-events-none">
+            <ChevronDown className="w-3.5 h-3.5 text-[#FCE2A6] animate-bounce shrink-0 stroke-[2.5] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]" />
           </div>
         </div>
       </div>
